@@ -1,0 +1,11 @@
+{
+  "name": "priority-nav",
+  "description": "Priority+ pattern navigation that hides menu items based on the viewport width.",
+  "repository": "https://github.com/gijsroge/priority-navigation",
+  "author": "@gijsroge",
+  "devDependencies": {
+    "grunt": "0.4.5",
+    "grunt-contrib-watch": "0.6.1",
+    "load-grunt-tasks": "3.1.0"
+  }
+}
