@@ -5,45 +5,54 @@
   <title>priority navigation demo</title>
   <style>
     ul{
+      border: solid red;
       padding: 0;
       margin: 0;
+      white-space: nowrap;
     }
     li{
       padding: 20px;
       list-style-type: none;
-      display: inline-block;;
+      display: inline-block;
     }
   </style>
 </head>
 <body>
 
-<ul>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-  <li>menu item</li>
-</ul>
+
+<nav class="nav">
+  <ul>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+    <li>menu item</li>
+  </ul>
+  <button>open</button>
+</nav>
+
 
 <script async="async"  src="//Gijs:35729/livereload.js?snipver=1"></script>
 <script src="../src/priority-nav.js"></script>
 <script>
-  priorityNav.init();
+  priorityNav.init({
+    navElement: '.nav'
+  });
 </script>
 </body>
 </html>

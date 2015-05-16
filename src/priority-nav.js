@@ -25,13 +25,16 @@
   //
 
   var priorityNav = {}; // Object for public APIs
-  var settings; // Plugin settings
+  var supports = !!document.querySelector && !!root.addEventListener; // Feature test
+  var settings, breakpoints, navElement;
 
   // Default settings
   var defaults = {
     initClass: 'js-priorityNav',
-    callbackBefore: function () {},
-    callbackAfter: function () {}
+    navDropdownClassName: 'nav__dropdown',
+    navElement: 'nav',
+    itemToDropdown: function () {},
+    itemToNav: function () {}
   };
 
 
@@ -127,6 +130,21 @@
 
 
   /**
+   * Insert after element
+   * @param newElement
+   * @param TargetElement
+   */
+  var insertAfter = function(newElement, targetElement){
+    var parent = targetElement.parentNode;
+    if(parent.lastChild == targetElement){
+      parent.appendChild(newElement)
+    }else{
+      parent.insertBefore(newElement, targetElement.nextSibling);
+    }
+  }
+
+
+  /**
    * Debounced resize to throttle execution
    * @param func
    * @param wait
@@ -148,14 +166,45 @@
     };
   };
 
+  /**
+   * Prepare html to put menu items in that don't fit.
+   * @param navElement
+   */
+  var prepareHtml = function(navElement){
+    // Create nav dropdown
+    var dropdownElement = document.createElement("ul");
+    dropdownElement.className = settings.navDropdownClassName;
+
+    // Inject nav dropdown after menu
+    navElement.appendChild(dropdownElement);
+  };
+
+  /**
+   * Get width
+   * @param elem
+   * @returns {number}
+   */
+  var calculateWidths = debounce(function (el) {
+    var navWidth = el.offsetWidth;
+  },250);
+
 
   /**
    * Destroy the current initialization.
    * @public
    */
   priorityNav.destroy = function () {
+
+    // If plugin isn't already initialized, stop
+    if ( !settings ) return;
+
+    // Remove feedback class
     document.documentElement.classList.remove( settings.initClass );
+
+    // Remove settings
+    settings = null;
   };
+
 
   /**
    * Initialize Plugin
@@ -164,11 +213,29 @@
    */
   priorityNav.init = function ( options ) {
 
+    // feature test
+    if ( !supports ) return;
+
+    // Destroy any existing initializations
+    priorityNav.destroy();
+
     // Merge user options with defaults
     settings = extend( defaults, options || {} );
 
     // Add class to HTML element to activate conditional CSS
     document.documentElement.classList.add( settings.initClass );
+
+    // Nav element
+    navElement = document.querySelector(settings.navElement); // Get the fixed header
+
+    // Calculate navElement width when resizing browser
+    window.addEventListener('resize', function(){calculateWidths(navElement)});
+
+    // Start plugin by calculating navElement width
+    calculateWidths(navElement);
+
+    // Prepare html
+    prepareHtml(navElement);
 
   };
 
@@ -176,7 +243,6 @@
   //
   // Public APIs
   //
-
   return priorityNav;
 
 });
