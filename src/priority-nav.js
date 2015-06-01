@@ -1,7 +1,10 @@
 /**
  *
  * Name v0.0.1
- * Priority+ pattern navigation that hides menu items based on the viewport width, by Gijs Roge.
+ * Priority+ pattern navigation that hides menu items based on the viewport width.
+ *
+ * Structure based on https://github.com/cferdinandi UMD boilerplate
+ * Code inspired by http://codepen.io/lukejacksonn/pen/PwmwWV
  *
  * Free to use under the MIT License.
  * http://twitter.com/GijsRoge
@@ -20,27 +23,31 @@
 
   'use strict';
 
-  //
-  // Variables
-  //
-
+  /**
+   * Variables
+   */
   var priorityNav = {}; // Object for public APIs
+  var breaks = []; // Array to store menu item's that don't fit.
   var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-  var settings, breakpoints, navElement;
+  var settings, navWrapper, totalWidth, navMenuWidth, toggleWidth, navMenu, navDropdown;
 
-  // Default settings
+
+  /**
+   * Default settings
+   * @type {{initClass: string, navDropdownClassName: string, navDropdownToggle: string, navWrapper: string, itemToDropdown: Function, itemToNav: Function}}
+   */
   var defaults = {
     initClass: 'js-priorityNav',
     navDropdownClassName: 'nav__dropdown',
-    navElement: 'nav',
+    navDropdownToggle: 'nav__dropdown-toggle',
+    throttleDelay: 500,
+    navWrapper: 'nav',
+    navMenu: 'nav__menu',
     itemToDropdown: function () {},
     itemToNav: function () {}
   };
 
 
-  //
-  // Methods
-  //
 
   /**
    * A simple forEach() implementation for Arrays, Objects and NodeLists
@@ -84,67 +91,6 @@
 
 
   /**
-   * Get the closest matching element up the DOM tree
-   * @param {Element} elem Starting element
-   * @param {String} selector Selector to match against (class, ID, or data attribute)
-   * @return {Boolean|Element} Returns false if not match found
-   */
-  var getClosest = function (elem, selector) {
-    var firstChar = selector.charAt(0);
-    for ( ; elem && elem !== document; elem = elem.parentNode ) {
-      if ( firstChar === '.' ) {
-        if ( elem.classList.contains( selector.substr(1) ) ) {
-          return elem;
-        }
-      } else if ( firstChar === '#' ) {
-        if ( elem.id === selector.substr(1) ) {
-          return elem;
-        }
-      } else if ( firstChar === '[' ) {
-        if ( elem.hasAttribute( selector.substr(1, selector.length - 2) ) ) {
-          return elem;
-        }
-      }
-    }
-    return false;
-  };
-
-
-  /**
-   * Get siblings of an element
-   * @private
-   * @param  {Element} elem
-   * @return {NodeList}
-   */
-  var getSiblings = function (elem) {
-    var siblings = [];
-    var sibling = elem.parentNode.firstChild;
-    var skipMe = elem;
-    for ( ; sibling; sibling = sibling.nextSibling ) {
-      if ( sibling.nodeType == 1 && sibling != elem ) {
-        siblings.push( sibling );
-      }
-    }
-    return siblings;
-  };
-
-
-  /**
-   * Insert after element
-   * @param newElement
-   * @param TargetElement
-   */
-  var insertAfter = function(newElement, targetElement){
-    var parent = targetElement.parentNode;
-    if(parent.lastChild == targetElement){
-      parent.appendChild(newElement)
-    }else{
-      parent.insertBefore(newElement, targetElement.nextSibling);
-    }
-  }
-
-
-  /**
    * Debounced resize to throttle execution
    * @param func
    * @param wait
@@ -166,27 +112,103 @@
     };
   };
 
-  /**
-   * Prepare html to put menu items in that don't fit.
-   * @param navElement
-   */
-  var prepareHtml = function(navElement){
-    // Create nav dropdown
-    var dropdownElement = document.createElement("ul");
-    dropdownElement.className = settings.navDropdownClassName;
 
-    // Inject nav dropdown after menu
-    navElement.appendChild(dropdownElement);
+  /**
+   * Check if dropdown ul is already on page before creating it
+   * @param navWrapper
+   */
+  var prepareHtml = function(){
+    if (!document.querySelector('.'+settings.navDropdownClassName)){
+
+      // Create nav dropdown if it doesn't already exist
+      navDropdown = document.createElement("ul");
+      navDropdown.className = settings.navDropdownClassName;
+
+      // Inject dropdown ul after navigation
+      navWrapper.appendChild(navDropdown);
+    }
   };
+
 
   /**
    * Get width
    * @param elem
    * @returns {number}
    */
-  var calculateWidths = debounce(function (el) {
-    var navWidth = el.offsetWidth;
-  },250);
+  var calculateWidths =  debounce(function () {
+    totalWidth = navWrapper.offsetWidth;
+    navMenuWidth = document.querySelector('.'+settings.navMenu).offsetWidth;
+    toggleWidth = document.querySelector('.'+settings.navDropdownToggle).offsetWidth;
+  },0);
+
+
+  /**
+   * Move item to array
+   * @param item
+   */
+  var checkIfItFits = debounce(function(item){
+
+    if(totalWidth < navMenuWidth + toggleWidth){
+
+      //move item to dropdown
+      moveItem('toDropdown');
+
+      //recalculate widths
+      calculateWidths()
+
+      //recheck
+      checkIfItFits();
+
+    }else{
+      //move item to menu
+      moveItem('toMenu');
+
+      //recheck
+      checkIfItFits();
+    }
+  },0);
+
+
+  /**
+   * Move item to dropdown
+   */
+  var moveItem = function(a){
+
+    if (a === 'toDropdown'){
+      //move last child of navigation menu to dropdown
+      navDropdown.appendChild(navMenu.lastElementChild);
+
+      //record breakpoints to restore items
+      breaks.push(navMenuWidth + toggleWidth);
+
+      //callback
+      settings.itemToDropdown();
+    }else{
+      if(totalWidth > breaks[breaks.length-1]) {
+
+        //move last child of navigation menu to dropdown
+        navMenu.appendChild(navDropdown.lastElementChild);
+
+        //remove last breakpoint
+        breaks.pop();
+
+        //callback
+        settings.itemToNav();
+      }
+    }
+  }
+
+
+  /**
+   * Bind eventlisteners
+   */
+  var listeners = function(){
+    // Calculate navWrapper width when resizing browser
+    window.addEventListener('resize', function(){calculateWidths()});
+
+    // Check if an item needs to move
+    window.addEventListener('resize', function(){checkIfItFits()});
+  };
 
 
   /**
@@ -226,23 +248,35 @@
     document.documentElement.classList.add( settings.initClass );
 
     // Nav element
-    navElement = document.querySelector(settings.navElement); // Get the fixed header
+    navWrapper = document.querySelector( settings.navWrapper );
 
-    // Calculate navElement width when resizing browser
-    window.addEventListener('resize', function(){calculateWidths(navElement)});
+    // Nav menu
+    navMenu = document.querySelector('.'+settings.navMenu );
 
-    // Start plugin by calculating navElement width
-    calculateWidths(navElement);
+    // Nav dropdown
+    navDropdown = document.querySelector('.'+settings.navDropdownClassName);
 
     // Prepare html
-    prepareHtml(navElement);
+    prepareHtml();
+
+    // Event listeners
+    listeners();
+
+    // Start plugin by calculating navWrapper width
+    calculateWidths();
+
+    // Start plugin by calculating navWrapper width
+    checkIfItFits();
 
   };
 
 
-  //
-  // Public APIs
-  //
+
+
+
+  /**
+   * Public APIs
+   */
   return priorityNav;
 
 });

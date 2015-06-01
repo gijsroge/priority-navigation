@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <title>priority navigation demo</title>
   <style>
+    nav{
+      white-space: nowrap;
+    }
     ul{
-      border: solid red;
       padding: 0;
       margin: 0;
       white-space: nowrap;
@@ -15,27 +17,26 @@
       list-style-type: none;
       display: inline-block;
     }
+    .inline-block{
+      display: inline-block;
+    }
+    .nav__dropdown{
+
+      background: #000;
+      color: white;
+
+    }
+    .nav__dropdown li{
+      display: block;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
 
 
 <nav class="nav">
-  <ul>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
+  <ul class="inline-block nav__menu" id="test">
     <li>menu item</li>
     <li>menu item</li>
     <li>menu item</li>
@@ -43,11 +44,12 @@
     <li>menu item</li>
     <li>menu item</li>
   </ul>
-  <button>open</button>
+  <button class="nav__dropdown-toggle inline-block">open</button>
 </nav>
 
 
-<script async="async"  src="//Gijs:35729/livereload.js?snipver=1"></script>
+<!--<script async="async"  src="//Gijs:35729/livereload.js?snipver=1"></script>-->
+<!--<script src="../src/classList.js"></script>-->
 <script src="../src/priority-nav.js"></script>
 <script>
   priorityNav.init({
