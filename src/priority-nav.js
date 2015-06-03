@@ -29,7 +29,8 @@
   var priorityNav = {}; // Object for public APIs
   var breaks = []; // Array to store menu item's that don't fit.
   var supports = !!document.querySelector && !!root.addEventListener; // Feature test
-  var settings, navWrapper, totalWidth, navMenuWidth, toggleWidth, navMenu, navDropdown;
+  var settings = {};
+  var navWrapper, totalWidth, navMenuWidth, toggleWidth, navMenu, navDropdown;
 
 
   /**
@@ -46,7 +47,6 @@
     itemToDropdown: function () {},
     itemToNav: function () {}
   };
-
 
 
   /**
@@ -123,7 +123,6 @@
       // Create nav dropdown if it doesn't already exist
       navDropdown = document.createElement("ul");
       navDropdown.className = settings.navDropdownClassName;
-
       // Inject dropdown ul after navigation
       navWrapper.appendChild(navDropdown);
     }
@@ -135,18 +134,25 @@
    * @param elem
    * @returns {number}
    */
-  var calculateWidths =  function () {
+  priorityNav.calculateWidths =  debounce(function () {
     totalWidth = navWrapper.offsetWidth;
     navMenuWidth = document.querySelector('.'+settings.navMenu).offsetWidth;
-    toggleWidth = document.querySelector('.'+settings.navDropdownToggle).offsetWidth;
-  };
+
+    //Check if dropdown button exist
+    if(document.querySelector('.'+settings.navDropdownToggle)){
+      toggleWidth = document.querySelector('.'+settings.navDropdownToggle).offsetWidth;
+    }else{
+      toggleWidth = 0;
+    }
+
+  },settings.throttleDelay);
 
 
   /**
    * Move item to array
    * @param item
    */
-  var checkIfItFits = debounce(function(item){
+  priorityNav.checkIfItFits = debounce(function(item){
 
     console.log('test');
 
@@ -156,21 +162,20 @@
 
       //move item to dropdown
       moveItem('toDropdown');
-
       //recalculate widths
-      calculateWidths()
-
+      priorityNav.calculateWidths()
       //recheck
-      checkIfItFits();
+      priorityNav.checkIfItFits();
 
     }else{
-      //move item to menu
-      moveItem('toMenu');
-
-      //recheck
-      checkIfItFits();
+      if(totalWidth > breaks[breaks.length-1]){
+        //move item to menu
+        moveItem('toMenu');
+        //recheck
+        priorityNav.checkIfItFits();
+      }
     }
-  },100);
+  },settings.throttleDelay);
 
 
   /**
@@ -181,23 +186,26 @@
     if (a === 'toDropdown'){
       //move last child of navigation menu to dropdown
       navDropdown.appendChild(navMenu.lastElementChild);
-
       //record breakpoints to restore items
       breaks.push(navMenuWidth + toggleWidth);
-
       //callback
       settings.itemToDropdown();
     }else{
-      if(totalWidth > breaks[breaks.length-1]) {
 
         //move last child of navigation menu to dropdown
         navMenu.appendChild(navDropdown.lastElementChild);
-
         //remove last breakpoint
         breaks.pop();
-
         //callback
         settings.itemToNav();
+    }
+  }
+
+  var getChildrenWidth = function(e){
+    var children = e.childNodes;
+    for (var i=0; i<children.length; i++) {
+      if (children[i].nodeType != 3) {
+        console.log(children[i].offsetWidth)
       }
     }
   }
@@ -208,10 +216,9 @@
    */
   var listeners = function(){
     // Calculate navWrapper width when resizing browser
-    window.addEventListener('resize', function(){calculateWidths()});
-
+    window.addEventListener('resize', function(){priorityNav.calculateWidths()});
     // Check if an item needs to move
-    window.addEventListener('resize', function(){checkIfItFits()});
+    window.addEventListener('resize', function(){priorityNav.checkIfItFits()});
   };
 
 
@@ -223,10 +230,8 @@
 
     // If plugin isn't already initialized, stop
     if ( !settings ) return;
-
     // Remove feedback class
     document.documentElement.classList.remove( settings.initClass );
-
     // Remove settings
     settings = null;
   };
@@ -241,32 +246,27 @@
 
     // Feature test.
     if ( !supports ) return;
-
-    // Destroy any existing initializations.
+    // Destroy any existing initializations
     priorityNav.destroy();
-
-    // Merge user options with defaults.
+    // Merge user options with defaults
     settings = extend( defaults, options || {} );
-
-    // Add class to HTML element to activate conditional CSS.
+    // Add class to HTML element to activate conditional CSS
     document.documentElement.classList.add( settings.initClass );
 
-    // Store html elements in vars.
     navWrapper = document.querySelector( settings.navWrapper );
     navMenu = document.querySelector('.'+settings.navMenu );
     navDropdown = document.querySelector('.'+settings.navDropdownClassName);
 
     // Generated the needed html if it doesn't exist yet.
     prepareHtml();
-
-    // Monitor resize to recalculate if items fit or not.
+    // Event listeners
     listeners();
+    // Start plugin by calculating navWrapper width
+    priorityNav.checkIfItFits();
 
-    // Start plugin by checking if the current nav items fit its container.
-    checkIfItFits();
+    getChildrenWidth(navWrapper);
 
   };
-
 
 
   /**
