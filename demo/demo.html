@@ -1,50 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>priority navigation demo</title>
-  <style>
-    nav{
-      white-space: nowrap;
-    }
-    ul{
-      padding: 0;
-      margin: 0;
-      white-space: nowrap;
-    }
-    li{
-      padding: 20px;
-      list-style-type: none;
-      display: inline-block;
-    }
-    .inline-block{
-      display: inline-block;
-    }
-    .nav__dropdown{
+    <meta charset="UTF-8">
+    <title>priority navigation demo</title>
+    <style>
+        nav {
+            white-space: nowrap;
+        }
 
-      background: #000;
-      color: white;
+        ul {
+            padding: 0;
+            margin: 0;
+            white-space: nowrap;
+        }
 
-    }
-    .nav__dropdown li{
-      display: block;
-      padding: 10px;
-    }
-  </style>
+        li {
+            padding: 20px;
+            list-style-type: none;
+            display: inline-block;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        .nav__dropdown {
+
+            background: #000;
+            color: white;
+
+        }
+
+        .nav__dropdown li {
+            display: block;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 
 
 <nav class="nav">
-  <ul class="inline-block nav__menu" id="test">
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-    <li>menu item</li>
-  </ul>
-  <button class="nav__dropdown-toggle inline-block">open</button>
+    <ul class="inline-block nav__menu" id="test">
+        <li>menu item</li>
+        <li>menu item</li>
+        <li>menu item</li>
+        <li>menu item</li>
+        <li>menu item</li>
+        <li>menu item</li>
+    </ul>
+    <button class="nav__dropdown-toggle inline-block">open</button>
 </nav>
 
 
@@ -52,9 +57,9 @@
 <!--<script src="../src/classList.js"></script>-->
 <script src="../src/priority-nav.js"></script>
 <script>
-  priorityNav.init({
-    navElement: '.nav'
-  });
+    priorityNav.init({
+        navElement: '.nav'
+    });
 </script>
 </body>
 </html>
