@@ -135,11 +135,11 @@
    * @param elem
    * @returns {number}
    */
-  var calculateWidths =  debounce(function () {
+  var calculateWidths =  function () {
     totalWidth = navWrapper.offsetWidth;
     navMenuWidth = document.querySelector('.'+settings.navMenu).offsetWidth;
     toggleWidth = document.querySelector('.'+settings.navDropdownToggle).offsetWidth;
-  },0);
+  };
 
 
   /**
@@ -147,6 +147,10 @@
    * @param item
    */
   var checkIfItFits = debounce(function(item){
+
+    console.log('test');
+
+    calculateWidths();
 
     if(totalWidth < navMenuWidth + toggleWidth){
 
@@ -166,7 +170,7 @@
       //recheck
       checkIfItFits();
     }
-  },0);
+  },100);
 
 
   /**
@@ -235,42 +239,33 @@
    */
   priorityNav.init = function ( options ) {
 
-    // feature test
+    // Feature test.
     if ( !supports ) return;
 
-    // Destroy any existing initializations
+    // Destroy any existing initializations.
     priorityNav.destroy();
 
-    // Merge user options with defaults
+    // Merge user options with defaults.
     settings = extend( defaults, options || {} );
 
-    // Add class to HTML element to activate conditional CSS
+    // Add class to HTML element to activate conditional CSS.
     document.documentElement.classList.add( settings.initClass );
 
-    // Nav element
+    // Store html elements in vars.
     navWrapper = document.querySelector( settings.navWrapper );
-
-    // Nav menu
     navMenu = document.querySelector('.'+settings.navMenu );
-
-    // Nav dropdown
     navDropdown = document.querySelector('.'+settings.navDropdownClassName);
 
-    // Prepare html
+    // Generated the needed html if it doesn't exist yet.
     prepareHtml();
 
-    // Event listeners
+    // Monitor resize to recalculate if items fit or not.
     listeners();
 
-    // Start plugin by calculating navWrapper width
-    calculateWidths();
-
-    // Start plugin by calculating navWrapper width
+    // Start plugin by checking if the current nav items fit its container.
     checkIfItFits();
 
   };
-
-
 
 
 
