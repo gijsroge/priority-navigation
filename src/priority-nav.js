@@ -41,7 +41,7 @@
         initClass: 'js-priorityNav',
         navDropdownClassName: 'nav__dropdown',
         navDropdownToggle: 'nav__dropdown-toggle',
-        throttleDelay: 500,
+        throttleDelay: 5000,
         navWrapper: 'nav',
         navMenu: 'nav__menu',
         itemToDropdown: function () {
@@ -136,62 +136,65 @@
      * @param elem
      * @returns {number}
      */
-    priorityNav.calculateWidths = debounce(function () {
+    var calculateWidths = function () {
         totalWidth = navWrapper.offsetWidth;
         restWidth = getChildrenWidth(navWrapper) - totalWidth;
-    }, settings.throttleDelay);
+    };
 
 
     /**
      * Move item to array
      * @param item
      */
-    priorityNav.checkIfItFits = debounce(function (item) {
+    var doesItFit = debounce(function (item) {
 
-        priorityNav.calculateWidths();
+        // Update width
+        calculateWidths();
 
-        if (totalWidth < restWidth) {
+        // Keep executing until all menu items that are overflowing are moved
+        while (totalWidth < restWidth) {
             //move item to dropdown
-            moveItem('toDropdown');
+            toDropdown();
             //recalculate widths
-            priorityNav.calculateWidths()
-            //recheck
-            priorityNav.checkIfItFits();
-
-        } else {
-            if (totalWidth > breaks[breaks.length - 1]) {
-                //move item to menu
-                moveItem('toMenu');
-                //recheck
-                priorityNav.checkIfItFits();
-            }
+            calculateWidths()
         }
-    }, settings.throttleDelay);
+
+        // Keep executing until all menu items that are able to move back or moved
+        while (totalWidth > breaks[breaks.length - 1]) {
+            //move item to menu
+            toMenu();
+        }
+
+    },50);
 
 
     /**
      * Move item to dropdown
      */
-    var moveItem = function (a) {
-        if (a === 'toDropdown') {
-            //move last child of navigation menu to dropdown
-            navDropdown.appendChild(navMenu.lastElementChild);
-            //record breakpoints to restore items
-            breaks.push(restWidth);
-            //callback
-            settings.itemToDropdown();
-        } else {
-            //move last child of navigation menu to dropdown
-            navMenu.appendChild(navDropdown.lastElementChild);
-            //remove last breakpoint
-            breaks.pop();
-            //callback
-            settings.itemToNav();
-        }
+    var toDropdown = function () {
+        //move last child of navigation menu to dropdown
+        navDropdown.appendChild(navMenu.lastElementChild);
+        //record breakpoints to restore items
+        breaks.push(restWidth);
+        //callback
+        settings.itemToDropdown();
+    }
+
+
+    /**
+     * Move item to menu
+     */
+    var toMenu = function () {
+        //move last child of navigation menu to dropdown
+        navMenu.appendChild(navDropdown.lastElementChild);
+        //remove last breakpoint
+        breaks.pop();
+        //callback
+        settings.itemToNav();
     }
 
     /**
-     * Count width of children and return
+     * Count width of children and return the value
      * @param e
      */
     var getChildrenWidth = function (e) {
@@ -212,13 +215,9 @@
      */
     var listeners = function () {
         // Calculate navWrapper width when resizing browser
-        window.addEventListener('resize', function () {
-            priorityNav.calculateWidths()
-        });
+        window.addEventListener('resize', calculateWidths);
         // Check if an item needs to move
-        window.addEventListener('resize', function () {
-            priorityNav.checkIfItFits()
-        });
+        window.addEventListener('resize', doesItFit);
     };
 
 
@@ -261,10 +260,7 @@
         // Event listeners
         listeners();
         // Start plugin by checking if menu items fits
-        priorityNav.checkIfItFits();
-
-
-        getChildrenWidth(navWrapper);
+        doesItFit();
     };
 
 
