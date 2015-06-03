@@ -156,7 +156,7 @@
 
     console.log('test');
 
-    calculateWidths();
+      priorityNav.calculateWidths();
 
     if(totalWidth < navMenuWidth + toggleWidth){
 
