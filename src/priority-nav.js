@@ -30,7 +30,7 @@
     var breaks = []; // Array to store menu item's that don't fit.
     var supports = !!document.querySelector && !!root.addEventListener; // Feature test
     var settings = {};
-    var navWrapper, totalWidth, restWidth, navMenu, navDropdown;
+    var navWrapper, totalWidth, restWidth, navMenu, navDropdown, navDropdownToggle;
 
 
     /**
@@ -41,7 +41,7 @@
         initClass: 'js-priorityNav',
         navDropdownClassName: 'nav__dropdown',
         navDropdownToggle: 'nav__dropdown-toggle',
-        throttleDelay: 5000,
+        throttleDelay: 250,
         navWrapper: 'nav',
         navMenu: 'nav__menu',
         itemToDropdown: function () {
@@ -70,6 +70,33 @@
                 callback.call(scope, collection[i], i, collection);
             }
         }
+    };
+
+
+    /**
+     * Get the closest matching element up the DOM tree
+     * @param {Element} elem Starting element
+     * @param {String} selector Selector to match against (class, ID, or data attribute)
+     * @return {Boolean|Element} Returns false if not match found
+     */
+    var getClosest = function (elem, selector) {
+        var firstChar = selector.charAt(0);
+        for ( ; elem && elem !== document; elem = elem.parentNode ) {
+            if ( firstChar === '.' ) {
+                if ( elem.classList.contains( selector.substr(1) ) ) {
+                    return elem;
+                }
+            } else if ( firstChar === '#' ) {
+                if ( elem.id === selector.substr(1) ) {
+                    return elem;
+                }
+            } else if ( firstChar === '[' ) {
+                if ( elem.hasAttribute( selector.substr(1, selector.length - 2) ) ) {
+                    return elem;
+                }
+            }
+        }
+        return false;
     };
 
 
@@ -116,12 +143,32 @@
 
 
     /**
+     * Toggle class on element
+     * @param el
+     * @param className
+     */
+    var toggleClass = function(el, className) {
+        if (el.classList) {
+            el.classList.toggle(className);
+        } else {
+            var classes = el.className.split(' ');
+            var existingIndex = classes.indexOf(className);
+
+            if (existingIndex >= 0)
+                classes.splice(existingIndex, 1); else
+                classes.push(className);
+
+            el.className = classes.join(' ');
+        }
+    };
+
+
+    /**
      * Check if dropdown ul is already on page before creating it
      * @param navWrapper
      */
     var prepareHtml = function () {
         if (!document.querySelector('.' + settings.navDropdownClassName)) {
-
             // Create nav dropdown if it doesn't already exist
             navDropdown = document.createElement("ul");
             navDropdown.className = settings.navDropdownClassName;
@@ -165,6 +212,15 @@
             toMenu();
         }
 
+        // Show or hide toggle
+        if(breaks.length < 1){
+            navDropdownToggle.classList.add('is-hidden');
+            navDropdownToggle.classList.remove('is-visible');
+        }else{
+            navDropdownToggle.classList.add('is-visible');
+            navDropdownToggle.classList.remove('is-hidden');
+        }
+
     },50);
 
 
@@ -193,6 +249,7 @@
         settings.itemToNav();
     }
 
+
     /**
      * Count width of children and return the value
      * @param e
@@ -203,7 +260,6 @@
         for (var i = 0; i < children.length; i++) {
             if (children[i].nodeType != 3) {
                 var sum = sum + children[i].offsetWidth;
-                //console.log(sum);
             }
         }
         return sum;
@@ -218,6 +274,20 @@
         window.addEventListener('resize', calculateWidths);
         // Check if an item needs to move
         window.addEventListener('resize', doesItFit);
+        // Toggle dropdown
+        navDropdownToggle.addEventListener('click', function(){
+            toggleClass(navDropdown, 'show');
+        });
+
+
+        /*
+         * Remove when clicked outside dropdown
+         */
+        document.addEventListener('click', function (event) {
+            if(!getClosest(event.target, '.'+settings.navDropdownClassName) && event.target !== navDropdownToggle){
+                navDropdown.classList.remove('show');
+            }
+        });
     };
 
 
@@ -232,6 +302,8 @@
         document.documentElement.classList.remove(settings.initClass);
         // Remove settings
         settings = null;
+
+        delete priorityNav.init;
     };
 
 
@@ -254,6 +326,7 @@
         navWrapper = document.querySelector(settings.navWrapper);
         navMenu = document.querySelector('.' + settings.navMenu);
         navDropdown = document.querySelector('.' + settings.navDropdownClassName);
+        navDropdownToggle = document.querySelector('.' + settings.navDropdownToggle);
 
         // Generated the needed html if it doesn't exist yet.
         prepareHtml();

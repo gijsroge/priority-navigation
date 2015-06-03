@@ -6,6 +6,7 @@
     <style>
         nav {
             white-space: nowrap;
+            overflow: hidden;
         }
 
         ul {
@@ -25,15 +26,18 @@
         }
 
         .nav__dropdown {
-
             background: #000;
             color: white;
-
         }
-
         .nav__dropdown li {
             display: block;
             padding: 10px;
+        }
+        .is-hidden{
+            visibility: hidden;
+        }
+        .is-visible{
+            visibility: visible;
         }
     </style>
 </head>
@@ -42,12 +46,12 @@
 
 <nav class="nav">
     <ul class="inline-block nav__menu" id="test">
-        <li>menu item</li>
-        <li>menu item</li>
-        <li>menu item</li>
-        <li>menu item</li>
-        <li>menu item</li>
-        <li>menu item</li>
+        <li><span>menu item</span></li>
+        <li><span>menu item</span></li>
+        <li><span>menu item</span></li>
+        <li><span>menu item</span></li>
+        <li><span>menu item</span></li>
+        <li><span>menu item</span></li>
     </ul>
     <button class="nav__dropdown-toggle inline-block">open</button>
 </nav>
