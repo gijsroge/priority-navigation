@@ -229,7 +229,8 @@
      */
     var toDropdown = function () {
         //move last child of navigation menu to dropdown
-        navDropdown.appendChild(navMenu.lastElementChild);
+        if(navDropdown.firstChild) navDropdown.insertBefore(navMenu.lastElementChild,navDropdown.firstChild);
+        else navDropdown.appendChild(navMenu.lastElementChild);
         //record breakpoints to restore items
         breaks.push(restWidth);
         //callback
@@ -242,7 +243,7 @@
      */
     var toMenu = function () {
         //move last child of navigation menu to dropdown
-        navMenu.appendChild(navDropdown.lastElementChild);
+        navMenu.appendChild(navDropdown.firstElementChild);
         //remove last breakpoint
         breaks.pop();
         //callback
