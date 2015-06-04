@@ -271,8 +271,6 @@
      * Bind eventlisteners
      */
     var listeners = function () {
-        // Calculate navWrapper width when resizing browser
-        window.addEventListener('resize', calculateWidths);
         // Check if an item needs to move
         window.addEventListener('resize', doesItFit);
         // Toggle dropdown
