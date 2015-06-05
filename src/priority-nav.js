@@ -30,7 +30,7 @@
     var breaks = []; // Array to store menu item's that don't fit.
     var supports = !!document.querySelector && !!root.addEventListener; // Feature test
     var settings = {};
-    var navWrapper, totalWidth, restWidth, navMenu, navDropdown, navDropdownToggle;
+    var navWrapper, totalWidth, restWidth, navMenu, navDropdown, navDropdownToggle, dropDownWidth;
 
 
     /**
@@ -185,7 +185,8 @@
      */
     var calculateWidths = function () {
         totalWidth = navWrapper.offsetWidth;
-        restWidth = getChildrenWidth(navWrapper);
+        dropDownWidth = navDropdown.offsetWidth;
+        restWidth = getChildrenWidth(navWrapper) - dropDownWidth;
     };
 
 
