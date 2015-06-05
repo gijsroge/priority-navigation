@@ -81,17 +81,17 @@
      */
     var getClosest = function (elem, selector) {
         var firstChar = selector.charAt(0);
-        for ( ; elem && elem !== document; elem = elem.parentNode ) {
-            if ( firstChar === '.' ) {
-                if ( elem.classList.contains( selector.substr(1) ) ) {
+        for (; elem && elem !== document; elem = elem.parentNode) {
+            if (firstChar === '.') {
+                if (elem.classList.contains(selector.substr(1))) {
                     return elem;
                 }
-            } else if ( firstChar === '#' ) {
-                if ( elem.id === selector.substr(1) ) {
+            } else if (firstChar === '#') {
+                if (elem.id === selector.substr(1)) {
                     return elem;
                 }
-            } else if ( firstChar === '[' ) {
-                if ( elem.hasAttribute( selector.substr(1, selector.length - 2) ) ) {
+            } else if (firstChar === '[') {
+                if (elem.hasAttribute(selector.substr(1, selector.length - 2))) {
                     return elem;
                 }
             }
@@ -147,7 +147,7 @@
      * @param el
      * @param className
      */
-    var toggleClass = function(el, className) {
+    var toggleClass = function (el, className) {
         if (el.classList) {
             el.classList.toggle(className);
         } else {
@@ -185,7 +185,7 @@
      */
     var calculateWidths = function () {
         totalWidth = navWrapper.offsetWidth;
-        restWidth = getChildrenWidth(navWrapper) - totalWidth;
+        restWidth = getChildrenWidth(navWrapper);
     };
 
 
@@ -213,15 +213,15 @@
         }
 
         // Show or hide toggle
-        if(breaks.length < 1){
+        if (breaks.length < 1) {
             navDropdownToggle.classList.add('is-hidden');
             navDropdownToggle.classList.remove('is-visible');
-        }else{
+        } else {
             navDropdownToggle.classList.add('is-visible');
             navDropdownToggle.classList.remove('is-hidden');
         }
 
-    },50);
+    }, 50);
 
 
     /**
@@ -229,7 +229,7 @@
      */
     var toDropdown = function () {
         //move last child of navigation menu to dropdown
-        if(navDropdown.firstChild) navDropdown.insertBefore(navMenu.lastElementChild,navDropdown.firstChild);
+        if (navDropdown.firstChild) navDropdown.insertBefore(navMenu.lastElementChild, navDropdown.firstChild);
         else navDropdown.appendChild(navMenu.lastElementChild);
         //record breakpoints to restore items
         breaks.push(restWidth);
@@ -274,7 +274,7 @@
         // Check if an item needs to move
         window.addEventListener('resize', doesItFit);
         // Toggle dropdown
-        navDropdownToggle.addEventListener('click', function(){
+        navDropdownToggle.addEventListener('click', function () {
             toggleClass(navDropdown, 'show');
         });
 
@@ -283,7 +283,7 @@
          * Remove when clicked outside dropdown
          */
         document.addEventListener('click', function (event) {
-            if(!getClosest(event.target, '.'+settings.navDropdownClassName) && event.target !== navDropdownToggle){
+            if (!getClosest(event.target, '.' + settings.navDropdownClassName) && event.target !== navDropdownToggle) {
                 navDropdown.classList.remove('show');
             }
         });
