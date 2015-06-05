@@ -24,10 +24,15 @@
         .inline-block {
             display: inline-block;
         }
+        
+        .show{
+            display: block;
+        }
 
         .nav__dropdown {
             background: #000;
             color: white;
+            display: none;
         }
         .nav__dropdown li {
             display: block;
@@ -43,9 +48,10 @@
 </head>
 <body>
 
-
+<button id="test">toDropdown</button>
+<button id="test2">toMenu</button>
 <nav class="nav">
-    <ul class="inline-block nav__menu" id="test">
+    <ul class="inline-block nav__menu">
         <li><span>menu item 1</span></li>
         <li><span>menu item 2</span></li>
         <li><span>menu item 3</span></li>
@@ -60,10 +66,23 @@
 <!--<script async="async"  src="//Gijs:35729/livereload.js?snipver=1"></script>-->
 <!--<script src="../src/classList.js"></script>-->
 <script src="../src/priority-nav.js"></script>
+
 <script>
     priorityNav.init({
         navElement: '.nav'
     });
+
+    var elem = document.getElementById("test");
+    var elem2 = document.getElementById("test2");
+
+    elem.addEventListener('click', function(){
+        priorityNav.toDropdown();
+    });
+
+    elem2.addEventListener('click', function(){
+        priorityNav.toMenu();
+    });
+
 </script>
 </body>
 </html>

@@ -201,7 +201,7 @@
         // Keep executing until all menu items that are overflowing are moved
         while (totalWidth < restWidth) {
             //move item to dropdown
-            toDropdown();
+            priorityNav.toDropdown();
             //recalculate widths
             calculateWidths()
         }
@@ -209,7 +209,7 @@
         // Keep executing until all menu items that are able to move back or moved
         while (totalWidth > breaks[breaks.length - 1]) {
             //move item to menu
-            toMenu();
+            priorityNav.toMenu();
         }
 
         // Show or hide toggle
@@ -227,10 +227,16 @@
     /**
      * Move item to dropdown
      */
-    var toDropdown = function () {
+    priorityNav.toDropdown = function () {
         //move last child of navigation menu to dropdown
-        if(navDropdown.firstChild) navDropdown.insertBefore(navMenu.lastElementChild,navDropdown.firstChild);
-        else navDropdown.appendChild(navMenu.lastElementChild);
+        if(navDropdown.firstChild && navMenu.children.length > 0){
+            console.log('first');
+            navDropdown.insertBefore(navMenu.lastElementChild,navDropdown.firstChild);
+        }
+        else if(navMenu.children.length > 0){
+            console.log('second');
+            navDropdown.appendChild(navMenu.lastElementChild);
+        }
         //record breakpoints to restore items
         breaks.push(restWidth);
         //callback
@@ -241,9 +247,9 @@
     /**
      * Move item to menu
      */
-    var toMenu = function () {
+    priorityNav.toMenu = function () {
         //move last child of navigation menu to dropdown
-        navMenu.appendChild(navDropdown.firstElementChild);
+        if(navDropdown.children.length > 0) navMenu.appendChild(navDropdown.firstElementChild);
         //remove last breakpoint
         breaks.pop();
         //callback
