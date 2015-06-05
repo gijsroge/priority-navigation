@@ -309,9 +309,10 @@
     /**
      * Bind eventlisteners
      */
-    var listeners = function (settings) {
+    var listeners = function () {
         // Check if an item needs to move
         window.addEventListener('resize', priorityNav.doesItFit);
+
         // Toggle dropdown
         navDropdownToggle.addEventListener('click', function () {
             toggleClass(navDropdown, 'show');
@@ -378,7 +379,7 @@
         prepareHtml();
 
         // Event listeners
-        listeners(settings);
+        listeners();
 
         // Start plugin by checking if menu items fits
         priorityNav.doesItFit();
