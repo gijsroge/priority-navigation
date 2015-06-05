@@ -30,8 +30,7 @@
     var breaks = []; // Array to store menu item's that don't fit.
     var supports = !!document.querySelector && !!root.addEventListener; // Feature test
     var settings = {};
-    var navWrapper, totalWidth, restWidth, navMenu, navDropdown, navDropdownToggle, dropDownWidth;
-
+    var navWrapper, totalWidth, restWidth, navMenu, navDropdown, navDropdownToggle, dropDownWidth, sheet;
 
     /**
      * Default settings
@@ -41,7 +40,8 @@
         initClass: 'js-priorityNav',
         navDropdownClassName: 'nav__dropdown',
         navDropdownToggle: 'nav__dropdown-toggle',
-        throttleDelay: 250,
+        throttleDelay: 50,
+        childrenCount: false,
         navWrapper: 'nav',
         navMenu: 'nav__menu',
         itemToDropdown: function () {
@@ -126,7 +126,7 @@
      * @param immediate
      * @returns {Function}
      */
-    function debounce(func, wait, immediate) {
+    function debounce(func, wait, immediate, settings) {
         var timeout;
         return function () {
             var context = this, args = arguments;
@@ -185,7 +185,12 @@
      */
     var calculateWidths = function () {
         totalWidth = navWrapper.offsetWidth;
-        dropDownWidth = navDropdown.offsetWidth;
+        //Check if parent is the navwrapper before calculating its width
+        if (navDropdown.parentNode === navWrapper) {
+            dropDownWidth = navDropdown.offsetWidth;
+        } else {
+            dropDownWidth = 0;
+        }
         restWidth = getChildrenWidth(navWrapper) - dropDownWidth;
     };
 
@@ -194,26 +199,37 @@
      * Move item to array
      * @param item
      */
-    var doesItFit = debounce(function (item) {
+    priorityNav.doesItFit = function () {
+        (debounce(function () {
 
-        // Update width
-        calculateWidths();
+            // Update width
+            calculateWidths();
 
-        // Keep executing until all menu items that are overflowing are moved
-        while (totalWidth < restWidth) {
-            //move item to dropdown
-            priorityNav.toDropdown();
-            //recalculate widths
-            calculateWidths()
-        }
+            // Keep executing until all menu items that are overflowing are moved
+            while (totalWidth < restWidth && navMenu.children.length > 0) {
+                //move item to dropdown
+                priorityNav.toDropdown();
+                //recalculate widths
+                calculateWidths()
+            }
 
-        // Keep executing until all menu items that are able to move back or moved
-        while (totalWidth > breaks[breaks.length - 1]) {
-            //move item to menu
-            priorityNav.toMenu();
-        }
+            // Keep executing until all menu items that are able to move back or moved
+            while (totalWidth > breaks[breaks.length - 1]) {
+                //move item to menu
+                priorityNav.toMenu();
+            }
 
-        // Show or hide toggle
+            //Check if we need to show toggle menu button
+            showToggle();
+
+        }, settings.throttleDelay))();
+    };
+
+
+    /**
+     * Show/hide toggle button
+     */
+    var showToggle = function () {
         if (breaks.length < 1) {
             navDropdownToggle.classList.add('is-hidden');
             navDropdownToggle.classList.remove('is-visible');
@@ -221,8 +237,15 @@
             navDropdownToggle.classList.add('is-visible');
             navDropdownToggle.classList.remove('is-hidden');
         }
+    }
 
-    }, 50);
+
+    /**
+     * Update count on dropdown toggle button
+     */
+    var updateCount = function () {
+        navDropdownToggle.dataset.count = breaks.length;
+    }
 
 
     /**
@@ -230,18 +253,21 @@
      */
     priorityNav.toDropdown = function () {
         //move last child of navigation menu to dropdown
-        if(navDropdown.firstChild && navMenu.children.length > 0){
-            console.log('first');
-            navDropdown.insertBefore(navMenu.lastElementChild,navDropdown.firstChild);
-        }
-        else if(navMenu.children.length > 0){
-            console.log('second');
+        if (navDropdown.firstChild && navMenu.children.length > 0) {
+            navDropdown.insertBefore(navMenu.lastElementChild, navDropdown.firstChild);
+        } else if (navMenu.children.length > 0) {
             navDropdown.appendChild(navMenu.lastElementChild);
         }
         //record breakpoints to restore items
         breaks.push(restWidth);
         //callback
         settings.itemToDropdown();
+        //check if we need to show toggle menu button
+        showToggle();
+        //update count on dropdown toggle button
+        if (settings.childrenCount){
+            updateCount();
+        }
     }
 
 
@@ -250,11 +276,17 @@
      */
     priorityNav.toMenu = function () {
         //move last child of navigation menu to dropdown
-        if(navDropdown.children.length > 0) navMenu.appendChild(navDropdown.firstElementChild);
+        if (navDropdown.children.length > 0) navMenu.appendChild(navDropdown.firstElementChild);
         //remove last breakpoint
         breaks.pop();
         //callback
         settings.itemToNav();
+        //Check if we need to show toggle menu button
+        showToggle();
+        //update count on dropdown toggle button
+        if (settings.childrenCount){
+            updateCount();
+        }
     }
 
 
@@ -277,14 +309,13 @@
     /**
      * Bind eventlisteners
      */
-    var listeners = function () {
+    var listeners = function (settings) {
         // Check if an item needs to move
-        window.addEventListener('resize', doesItFit);
+        window.addEventListener('resize', priorityNav.doesItFit);
         // Toggle dropdown
         navDropdownToggle.addEventListener('click', function () {
             toggleClass(navDropdown, 'show');
         });
-
 
         /*
          * Remove when clicked outside dropdown
@@ -294,6 +325,16 @@
                 navDropdown.classList.remove('show');
             }
         });
+
+        /**
+         * Remove when escape key is pressed
+         */
+        document.onkeydown = function (evt) {
+            evt = evt || window.event;
+            if (evt.keyCode == 27) {
+                navDropdown.classList.remove('show');
+            }
+        };
     };
 
 
@@ -308,7 +349,6 @@
         document.documentElement.classList.remove(settings.initClass);
         // Remove settings
         settings = null;
-
         delete priorityNav.init;
     };
 
@@ -336,10 +376,12 @@
 
         // Generated the needed html if it doesn't exist yet.
         prepareHtml();
+
         // Event listeners
-        listeners();
+        listeners(settings);
+
         // Start plugin by checking if menu items fits
-        doesItFit();
+        priorityNav.doesItFit();
     };
 
 
