@@ -23,6 +23,8 @@
 
     'use strict';
 
+
+
     /**
      * Variables
      */
@@ -34,18 +36,16 @@
 
     /**
      * Default settings
-     * @type {{initClass: string, navDropdown: string, navDropdownToggle: string, navWrapper: string, itemToDropdown: Function, itemToNav: Function}}
+     * @type {{initClass: string, navDropdownClassName: string, navDropdownToggle: string, navWrapper: string, itemToDropdown: Function, itemToNav: Function}}
      */
     var defaults = {
         initClass: 'js-priorityNav',
-        navWrapper: 'nav',
-        navMenu: '.nav__menu',
-        navDropdown: '.nav__dropdown',
-        navDropdownToggle: '.nav__dropdown-toggle',
+        navDropdownClassName: 'nav__dropdown',
+        navDropdownToggle: 'nav__dropdown-toggle',
         throttleDelay: 50,
         childrenCount: false,
-
-        //Callbacks
+        navWrapper: 'nav',
+        navMenu: 'nav__menu',
         itemToDropdown: function () {
         },
         itemToNav: function () {
@@ -170,12 +170,11 @@
      * @param navWrapper
      */
     var prepareHtml = function () {
-        if (!document.querySelector(settings.navDropdown)) {
+        if (!document.querySelector('.' + settings.navDropdownClassName)) {
             // Create nav dropdown if it doesn't already exist
             navDropdown = document.createElement("ul");
-            navDropdown.className = settings.navDropdown;
+            navDropdown.className = settings.navDropdownClassName;
             // Inject dropdown ul after navigation
-
             navWrapper.appendChild(navDropdown);
         }
     };
@@ -268,7 +267,7 @@
         //check if we need to show toggle menu button
         showToggle();
         //update count on dropdown toggle button
-        if (settings.childrenCount) {
+        if (settings.childrenCount){
             updateCount();
         }
     }
@@ -287,7 +286,7 @@
         //Check if we need to show toggle menu button
         showToggle();
         //update count on dropdown toggle button
-        if (settings.childrenCount) {
+        if (settings.childrenCount){
             updateCount();
         }
     }
@@ -319,16 +318,14 @@
         // Toggle dropdown
         navDropdownToggle.addEventListener('click', function () {
             toggleClass(navDropdown, 'show');
-            toggleClass(navDropdownToggle, 'is-open');
         });
 
         /*
          * Remove when clicked outside dropdown
          */
         document.addEventListener('click', function (event) {
-            if (!getClosest(event.target, '.' + settings.navDropdown) && event.target !== navDropdownToggle) {
+            if (!getClosest(event.target, '.' + settings.navDropdownClassName) && event.target !== navDropdownToggle) {
                 navDropdown.classList.remove('show');
-                navDropdownToggle.classList.remove('is-open');
             }
         });
 
@@ -376,25 +373,9 @@
 
         // Store html element
         navWrapper = document.querySelector(settings.navWrapper);
-        if (!navWrapper) {
-            console.warn("couldn't find the specified navWrapper element");
-            return
-        }
-        navMenu = document.querySelector(settings.navWrapper + ' ' + settings.navMenu);
-        if (!navMenu) {
-            console.warn("couldn't find the specified navMenu element");
-            return
-        }
-        navDropdown = document.querySelector(settings.navWrapper + ' ' + settings.navDropdown);
-        if (!navDropdown) {
-            console.warn("couldn't find the specified navDropdown element");
-            return
-        }
-        navDropdownToggle = document.querySelector(settings.navDropdownToggle);
-        if (!navDropdownToggle) {
-            console.warn("couldn't find the specified navDropdownToggle element");
-            return
-        }
+        navMenu = document.querySelector('.' + settings.navMenu);
+        navDropdown = document.querySelector('.' + settings.navDropdownClassName);
+        navDropdownToggle = document.querySelector('.' + settings.navDropdownToggle);
 
         // Generated the needed html if it doesn't exist yet.
         prepareHtml();
@@ -404,7 +385,6 @@
 
         // Start plugin by checking if menu items fits
         priorityNav.doesItFit();
-
     };
 
 

@@ -1,0 +1,10 @@
+.wrapper{
+	$padding: 50px;
+	max-width: $wrapper;
+	margin: 0 auto;
+}
+
+.wrapper--small{
+	max-width: $small-wrapper;
+	margin: 0 auto;
+}

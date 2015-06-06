@@ -1,0 +1,26 @@
+{
+  "name": "quickstart",
+  "author": "gijsroge",
+  "devDependencies": {
+    "autoprefixer-core": "^5.2.0",
+    "cssnano": "^1.3.0",
+    "csswring": "^3.0.5",
+    "grunt": "^0.4.5",
+    "grunt-browser-sync": "^2.1.3",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-uglify": "0.9.1",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-ftp-deploy": "^0.1.10",
+    "grunt-grunticon": "2.1.6",
+    "grunt-notify": "0.4.1",
+    "grunt-postcss": "^0.4.0",
+    "grunt-svgmin": "^2.0.1",
+    "jit-grunt": "^0.9.1",
+    "load-grunt-tasks": "^3.2.0",
+    "postcss": "^4.1.11",
+    "postcss-import": "^5.2.2",
+    "postcss-mixins": "^0.3.0",
+    "postcss-nested": "^0.3.2",
+    "postcss-simple-vars": "^0.3.0"
+  }
+}

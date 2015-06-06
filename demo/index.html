@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Priority Navigation - Lightweight, no dependencies, pure javascript</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- main stylesheet -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- load fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700,300' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+<nav class="nav">
+    <ul class="inline-block nav__menu">
+        <li><span>menu item 1</span></li>
+        <li><span>menu item 2</span></li>
+        <li><span>menu item 3</span></li>
+        <li><span>menu item 4</span></li>
+        <li><span>menu item 5</span></li>
+        <li><span>menu item 6</span></li>
+    </ul>
+    <span class="relative">
+        <button class="nav__dropdown-toggle button">open</button>
+        <ul class="nav__dropdown"></ul>
+    </span>
+</nav>
+
+<nav class="nav">
+    <ul class="inline-block nav__menu">
+        <li><span>menu item 1</span></li>
+        <li><span>menu item 2</span></li>
+        <li><span>menu item 3</span></li>
+        <li><span>menu item 4</span></li>
+        <li><span>menu item 5</span></li>
+        <li><span>menu item 6</span></li>
+    </ul>
+    <span class="relative">
+        <button class="nav__dropdown-toggle button">more</button>
+        <ul class="nav__dropdown"></ul>
+    </span>
+</nav>
+
+
+<script src="js/classList.js"></script>
+<script src="../src/priority-nav.js"></script>
+
+<script>
+
+    var responsiveNav = new priorityNav.init({
+        navWrapper: '.nav',
+        navMenu: '.nav__menu',
+        navDropdown: '.nav__dropdown',
+        navDropdownToggle: '.nav__dropdown-toggle',
+        childrenCount: true,
+        throttleDelay: 0
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+/* 
+ * Wrapper 
+ */
+$wrapper: 1500px;
+$small-wrapper: 1000px;
+
+/* 
+ * Media Queries 
+ */
+$largedesktop: 1300px;
+$desktop: 1100px;
+$tablet: 960px;
+$small-tablet: 760px;
+$smartphone-landscape: 600px;
+$smartphone: 360px;
+
+/* 
+ * Font weights 
+ */
+$bold: 700;
+$semi: 600;
+$normal: 400;
+$light: 300;

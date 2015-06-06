@@ -1,0 +1,9 @@
+/*
+ * Basic button
+ */
+ .button{
+ 	display: inline-block;
+ 	cursor: pointer;
+ 	border: none;
+ 	text-decoration: none;
+ }

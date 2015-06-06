@@ -1,0 +1,40 @@
+/*
+ * Abstractions like variables, mixins, etc...
+ */
+@import "utils/variables.css";
+@import "utils/**/*.css";
+
+/*
+ * Base styles (typography, etc..)
+ */
+@import "base/**/*.css";
+
+/*
+ * Components styles
+ */
+@import "components/**/*.css";
+
+/*
+ * Layout styles (header, footer, sidebar, etc..)
+ */
+@import "layouts/**/*.css";
+
+/*
+ * Page specific styles
+ */
+@import "pages/**/*.css";
+
+/*
+ * Different themes
+ */
+@import "themes/**/*.css";
+
+/*
+ * Third party styles (sliders, lightbox, dropdown)
+ */
+@import "vendors/**/*.css";
+
+/*
+ * Hacks & Dirty shit :)
+ */
+@import "shame.css";
