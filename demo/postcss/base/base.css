@@ -2,6 +2,10 @@
 	$padding: 50px;
 	max-width: $wrapper;
 	margin: 0 auto;
+	@media(max-width: 1100px){
+		padding-left: 50px;
+		padding-right: 50px;
+	}
 }
 
 .wrapper--small{

@@ -189,13 +189,18 @@
      */
     var calculateWidths = function () {
         totalWidth = navWrapper.offsetWidth;
+        //console.log('totalWidth: '+totalWidth);
         //Check if parent is the navwrapper before calculating its width
         if (navDropdown.parentNode === navWrapper) {
             dropDownWidth = navDropdown.offsetWidth;
+            //console.log('dropDownWidth: '+dropDownWidth);
         } else {
             dropDownWidth = 0;
+            //console.log('dropDownWidth: '+dropDownWidth);
         }
         restWidth = getChildrenWidth(navWrapper) - dropDownWidth + settings.offsetPixels;
+        //console.log('restWidth: '+restWidth);
+        //console.log('children: '+getChildrenWidth(navWrapper));
     };
 
 
@@ -218,6 +223,7 @@
                 calculateWidths()
             }
 
+            //console.log(breaks.length);
 
             // Keep executing until all menu items that are able to move back or moved
             while (totalWidth > breaks[breaks.length - 1]) {
@@ -272,6 +278,7 @@
             navDropdown.appendChild(navMenu.lastElementChild);
         }
 
+        //console.log('toDropdown');
         //record breakpoints to restore items
         breaks.push(restWidth);
         //callback
@@ -313,7 +320,10 @@
         var sum = 0;
         for (var i = 0; i < children.length; i++) {
             if (children[i].nodeType != 3) {
-                var sum = sum + children[i].offsetWidth;
+                if(!isNaN(children[i].offsetWidth)){
+                    var sum = sum + children[i].offsetWidth;
+                }
+
             }
         }
         return sum;
