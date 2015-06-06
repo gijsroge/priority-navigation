@@ -187,21 +187,24 @@
      * @param elem
      * @returns {number}
      */
+    //Todo: Get width without padding!
+
     var calculateWidths = function () {
         totalWidth = navWrapper.offsetWidth;
-        //console.log('totalWidth: '+totalWidth);
+        console.log('totalWidth: '+totalWidth);
         //Check if parent is the navwrapper before calculating its width
         if (navDropdown.parentNode === navWrapper) {
             dropDownWidth = navDropdown.offsetWidth;
-            //console.log('dropDownWidth: '+dropDownWidth);
+            console.log('dropDownWidth: '+dropDownWidth);
         } else {
             dropDownWidth = 0;
-            //console.log('dropDownWidth: '+dropDownWidth);
+            console.log('dropDownWidth: '+dropDownWidth);
         }
         restWidth = getChildrenWidth(navWrapper) - dropDownWidth + settings.offsetPixels;
-        //console.log('restWidth: '+restWidth);
-        //console.log('children: '+getChildrenWidth(navWrapper));
+        console.log('restWidth: '+restWidth);
+        console.log('children: '+getChildrenWidth(navWrapper));
     };
+
 
 
     /**
@@ -223,7 +226,7 @@
                 calculateWidths()
             }
 
-            //console.log(breaks.length);
+            console.log(breaks.length);
 
             // Keep executing until all menu items that are able to move back or moved
             while (totalWidth > breaks[breaks.length - 1]) {
@@ -278,7 +281,7 @@
             navDropdown.appendChild(navMenu.lastElementChild);
         }
 
-        //console.log('toDropdown');
+        console.log('toDropdown');
         //record breakpoints to restore items
         breaks.push(restWidth);
         //callback
@@ -322,6 +325,7 @@
             if (children[i].nodeType != 3) {
                 if(!isNaN(children[i].offsetWidth)){
                     var sum = sum + children[i].offsetWidth;
+                    console.log([i]+': '+children[i].offsetWidth);
                 }
 
             }
