@@ -16,39 +16,42 @@
 </head>
 <body>
 
-<nav class="nav">
-    <ul class="inline-block nav__menu">
-        <li><span>menu item 1</span></li>
-        <li><span>menu item 2</span></li>
-        <li><span>menu item 3</span></li>
-        <li><span>menu item 4</span></li>
-        <li><span>menu item 5</span></li>
-        <li><span>menu item 6</span></li>
-    </ul>
-    <span class="relative">
-        <button class="nav__dropdown-toggle button">open</button>
-        <ul class="nav__dropdown"></ul>
-    </span>
-</nav>
+<header>
+    <h1 class="wrapper">Smart responsive navigation based on the priority+ pattern</h1>
+</header>
 
-<nav class="nav">
-    <ul class="inline-block nav__menu">
-        <li><span>menu item 1</span></li>
-        <li><span>menu item 2</span></li>
-        <li><span>menu item 3</span></li>
-        <li><span>menu item 4</span></li>
-        <li><span>menu item 5</span></li>
-        <li><span>menu item 6</span></li>
-    </ul>
-    <span class="relative">
-        <button class="nav__dropdown-toggle button">more</button>
-        <ul class="nav__dropdown"></ul>
-    </span>
-</nav>
+<section class="example">
+    <nav class="wrapper nav nav--demo cf" id="resizable">
+        <ul class="inline-block nav__menu">
+            <li><a href="#">resize</a></li>
+            <li><a href="#">me</a></li>
+            <li><a href="#">and</a></li>
+            <li><a href="#">I will move</a></li>
+            <li><a href="#">my friends here</a></li>
+            <li><a href="#">to a dropdown</a></li>
+            <li><a href="#">if they don't fit :)</a></li>
+        </ul>
+        <span class="relative inline-block inline-block">
+            <button class="nav__dropdown-toggle button" data-menutext="menu">more</button>
+            <ul class="nav__dropdown"></ul>
+        </span>
+        <button class="inline-block demo-element button button--download">
+            download
+        </button>
+    </nav>
+</section>
+
+
+
 
 
 <script src="js/classList.js"></script>
+<script src="js/detectResize.js"></script>
 <script src="../src/priority-nav.js"></script>
+
+<script>
+
+</script>
 
 <script>
 
@@ -61,7 +64,7 @@
         throttleDelay: 0
     });
 
-
 </script>
+
 </body>
 </html>

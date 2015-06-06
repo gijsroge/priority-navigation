@@ -61,3 +61,27 @@
 .uppercase {
   text-transform: uppercase;
 }
+
+/* Hide/show */
+.is-hidden{
+  visibility: hidden;
+}
+
+/* Floats */
+.float-left{
+  float: left;
+}
+
+.float-right{
+  float: right;
+}
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}

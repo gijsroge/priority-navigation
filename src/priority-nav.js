@@ -43,6 +43,7 @@
         navDropdown: '.nav__dropdown',
         navDropdownToggle: '.nav__dropdown-toggle',
         throttleDelay: 50,
+        offsetPixels: 20,
         childrenCount: false,
 
         //Callbacks
@@ -194,7 +195,7 @@
         } else {
             dropDownWidth = 0;
         }
-        restWidth = getChildrenWidth(navWrapper) - dropDownWidth;
+        restWidth = getChildrenWidth(navWrapper) - dropDownWidth + settings.offsetPixels;
     };
 
 
@@ -210,11 +211,13 @@
 
             // Keep executing until all menu items that are overflowing are moved
             while (totalWidth < restWidth && navMenu.children.length > 0) {
+
                 //move item to dropdown
                 priorityNav.toDropdown();
                 //recalculate widths
                 calculateWidths()
             }
+
 
             // Keep executing until all menu items that are able to move back or moved
             while (totalWidth > breaks[breaks.length - 1]) {
@@ -241,9 +244,11 @@
         if (breaks.length < 1) {
             navDropdownToggle.classList.add('is-hidden');
             navDropdownToggle.classList.remove('is-visible');
+            navWrapper.classList.remove('has-dropdown');
         } else {
             navDropdownToggle.classList.add('is-visible');
             navDropdownToggle.classList.remove('is-hidden');
+            navWrapper.classList.add('has-dropdown');
         }
     }
 
@@ -266,6 +271,7 @@
         } else if (navMenu.children.length > 0) {
             navDropdown.appendChild(navMenu.lastElementChild);
         }
+
         //record breakpoints to restore items
         breaks.push(restWidth);
         //callback
@@ -273,7 +279,7 @@
         //check if we need to show toggle menu button
         showToggle();
         //update count on dropdown toggle button
-        if (settings.childrenCount) {
+        if (navMenu.children.length > 0 && settings.childrenCount) {
             updateCount();
         }
     }
@@ -292,7 +298,7 @@
         //Check if we need to show toggle menu button
         showToggle();
         //update count on dropdown toggle button
-        if (settings.childrenCount) {
+        if (navMenu.children.length > 0 && settings.childrenCount) {
             updateCount();
         }
     }

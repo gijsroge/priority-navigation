@@ -5,6 +5,11 @@
 @import "utils/**/*.css";
 
 /*
+ * Third party styles (sliders, lightbox, dropdown)
+ */
+@import "vendors/**/*.css";
+
+/*
  * Base styles (typography, etc..)
  */
 @import "base/**/*.css";
@@ -29,10 +34,6 @@
  */
 @import "themes/**/*.css";
 
-/*
- * Third party styles (sliders, lightbox, dropdown)
- */
-@import "vendors/**/*.css";
 
 /*
  * Hacks & Dirty shit :)
