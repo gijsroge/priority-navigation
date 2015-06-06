@@ -222,6 +222,11 @@
                 priorityNav.toMenu();
             }
 
+            // If there are no items in dropdown hide dropdown
+            if (breaks.length < 1) {
+                navDropdown.classList.remove('show');
+            }
+
             //Check if we need to show toggle menu button
             showToggle();
 
@@ -326,7 +331,7 @@
          * Remove when clicked outside dropdown
          */
         document.addEventListener('click', function (event) {
-            if (!getClosest(event.target, '.' + settings.navDropdown) && event.target !== navDropdownToggle) {
+            if (!getClosest(event.target, settings.navDropdown) && event.target !== navDropdownToggle) {
                 navDropdown.classList.remove('show');
                 navDropdownToggle.classList.remove('is-open');
             }
