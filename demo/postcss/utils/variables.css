@@ -1,8 +1,8 @@
 /* 
  * Wrapper 
  */
-$wrapper: 1000px;
-$small-wrapper: 800px;
+$wrapper: 700px;
+$small-wrapper: 500px;
 
 /* 
  * Media Queries 

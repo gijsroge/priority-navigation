@@ -14,7 +14,7 @@ nav{
 	margin: 0 auto;
 	overflow: hidden;
 
-	&.has-dropdown{
+	&.is-open{
 		overflow: visible;
 	}
 
@@ -92,7 +92,7 @@ nav{
 		white-space: nowrap;
 		visibility: hidden;
 		opacity: 0;
-		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+		box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.05);
 		padding: 10px;
 		border-radius: 3px;
 

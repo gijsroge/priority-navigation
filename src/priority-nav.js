@@ -190,19 +190,16 @@
     //Todo: Get width without padding!
 
     var calculateWidths = function () {
+
+
         totalWidth = navWrapper.offsetWidth;
-        console.log('totalWidth: '+totalWidth);
         //Check if parent is the navwrapper before calculating its width
         if (navDropdown.parentNode === navWrapper) {
             dropDownWidth = navDropdown.offsetWidth;
-            console.log('dropDownWidth: '+dropDownWidth);
         } else {
             dropDownWidth = 0;
-            console.log('dropDownWidth: '+dropDownWidth);
         }
         restWidth = getChildrenWidth(navWrapper) - dropDownWidth + settings.offsetPixels;
-        console.log('restWidth: '+restWidth);
-        console.log('children: '+getChildrenWidth(navWrapper));
     };
 
 
@@ -211,7 +208,18 @@
      * Move item to array
      * @param item
      */
-    priorityNav.doesItFit = function () {
+    priorityNav.doesItFit = function (checked) {
+
+        var checked, delay;
+
+        if(checked === 0){
+            delay = 0;
+        }else{
+            delay = settings.throttleDelay;
+        }
+
+        checked++;
+
         (debounce(function () {
 
             // Update width
@@ -226,7 +234,6 @@
                 calculateWidths()
             }
 
-            console.log(breaks.length);
 
             // Keep executing until all menu items that are able to move back or moved
             while (totalWidth > breaks[breaks.length - 1]) {
@@ -242,7 +249,7 @@
             //Check if we need to show toggle menu button
             showToggle();
 
-        }, settings.throttleDelay))();
+        }, delay ))();
     };
 
 
@@ -281,7 +288,6 @@
             navDropdown.appendChild(navMenu.lastElementChild);
         }
 
-        console.log('toDropdown');
         //record breakpoints to restore items
         breaks.push(restWidth);
         //callback
@@ -325,7 +331,6 @@
             if (children[i].nodeType != 3) {
                 if(!isNaN(children[i].offsetWidth)){
                     var sum = sum + children[i].offsetWidth;
-                    console.log([i]+': '+children[i].offsetWidth);
                 }
 
             }
@@ -345,6 +350,7 @@
         navDropdownToggle.addEventListener('click', function () {
             toggleClass(navDropdown, 'show');
             toggleClass(navDropdownToggle, 'is-open');
+            toggleClass(navWrapper, 'is-open');
         });
 
         /*
@@ -354,6 +360,7 @@
             if (!getClosest(event.target, settings.navDropdown) && event.target !== navDropdownToggle) {
                 navDropdown.classList.remove('show');
                 navDropdownToggle.classList.remove('is-open');
+                navWrapper.classList.remove('is-open');
             }
         });
 
@@ -364,6 +371,8 @@
             evt = evt || window.event;
             if (evt.keyCode == 27) {
                 navDropdown.classList.remove('show');
+                navDropdownToggle.classList.remove('is-open');
+                navWrapper.classList.remove('is-open');
             }
         };
     };
@@ -391,44 +400,58 @@
      */
     priorityNav.init = function (options) {
         // Feature test.
-        if (!supports) return;
+        if (!supports){
+            console.warn("This browser doesn't support priorityNav");
+            return;
+        }
         // Destroy any existing initializations
         priorityNav.destroy();
         // Merge user options with defaults
         settings = extend(defaults, options || {});
-        // Add class to HTML element to activate conditional CSS
-        document.documentElement.classList.add(settings.initClass);
+        var self = document.querySelectorAll(settings.navWrapper);
 
-        // Store html element
-        navWrapper = document.querySelector(settings.navWrapper);
-        if (!navWrapper) {
-            console.warn("couldn't find the specified navWrapper element");
-            return
-        }
-        navMenu = document.querySelector(settings.navWrapper + ' ' + settings.navMenu);
-        if (!navMenu) {
-            console.warn("couldn't find the specified navMenu element");
-            return
-        }
-        navDropdown = document.querySelector(settings.navWrapper + ' ' + settings.navDropdown);
-        if (!navDropdown) {
-            console.warn("couldn't find the specified navDropdown element");
-            return
-        }
-        navDropdownToggle = document.querySelector(settings.navDropdownToggle);
-        if (!navDropdownToggle) {
-            console.warn("couldn't find the specified navDropdownToggle element");
-            return
-        }
+        return forEach(self, function(){
 
-        // Generated the needed html if it doesn't exist yet.
-        prepareHtml();
+            console.log(self);
+            // Merge user options with defaults
+            settings = extend(defaults, options || {});
+            // Add class to HTML element to activate conditional CSS
+            document.documentElement.classList.add(settings.initClass);
 
-        // Event listeners
-        listeners();
+            //Ran
+            var checked = 0;
 
-        // Start plugin by checking if menu items fits
-        priorityNav.doesItFit();
+            // Store html element
+            navWrapper = document.querySelector(settings.navWrapper);
+            if (!navWrapper) {
+                console.warn("couldn't find the specified navWrapper element");
+                return
+            }
+            navMenu = document.querySelector(settings.navWrapper + ' ' + settings.navMenu);
+            if (!navMenu) {
+                console.warn("couldn't find the specified navMenu element");
+                return
+            }
+            navDropdown = document.querySelector(settings.navWrapper + ' ' + settings.navDropdown);
+            if (!navDropdown) {
+                console.warn("couldn't find the specified navDropdown element");
+                return
+            }
+            navDropdownToggle = document.querySelector(settings.navDropdownToggle);
+            if (!navDropdownToggle) {
+                console.warn("couldn't find the specified navDropdownToggle element");
+                return
+            }
+
+            // Generated the needed html if it doesn't exist yet.
+            prepareHtml();
+
+            // Event listeners
+            listeners();
+
+            // Start plugin by checking if menu items fits
+            priorityNav.doesItFit(checked);
+        })
 
     };
 
