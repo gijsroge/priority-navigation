@@ -174,10 +174,19 @@
         if (!document.querySelector(settings.navDropdown)) {
             // Create nav dropdown if it doesn't already exist
             navDropdown = document.createElement("ul");
-            navDropdown.className = settings.navDropdown;
+            navDropdown.className = settings.navDropdown.substr(1);
+            // Inject dropdown ul after navigation
+            console.log(navDropdown);
+            navWrapper.appendChild(navDropdown);
+        }
+
+        if (!document.querySelector(settings.navDropdownToggle)) {
+            // Create nav dropdown if it doesn't already exist
+            navDropdownToggle = document.createElement("button");
+            navDropdownToggle.className = settings.navDropdownToggle.substr(1);
             // Inject dropdown ul after navigation
 
-            navWrapper.appendChild(navDropdown);
+            navMenu.appendChild(navDropdownToggle);
         }
     };
 
@@ -432,7 +441,12 @@
                 console.warn("couldn't find the specified navMenu element");
                 return
             }
+
+            // Generated the needed html if it doesn't exist yet.
+            prepareHtml();
+
             navDropdown = document.querySelector(settings.navWrapper + ' ' + settings.navDropdown);
+
             if (!navDropdown) {
                 console.warn("couldn't find the specified navDropdown element");
                 return
@@ -443,8 +457,7 @@
                 return
             }
 
-            // Generated the needed html if it doesn't exist yet.
-            prepareHtml();
+
 
             // Event listeners
             listeners();
