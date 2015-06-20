@@ -43,7 +43,7 @@
         navDropdown: '.nav__dropdown',
         navDropdownToggle: '.nav__dropdown-toggle',
         throttleDelay: 50,
-        offsetPixels: 20,
+        offsetPixels: 0,
         childrenCount: false,
 
         //Callbacks
@@ -176,19 +176,30 @@
             navDropdown = document.createElement("ul");
             navDropdown.className = settings.navDropdown.substr(1);
             // Inject dropdown ul after navigation
-            console.log(navDropdown);
             navWrapper.appendChild(navDropdown);
         }
-
         if (!document.querySelector(settings.navDropdownToggle)) {
             // Create nav dropdown if it doesn't already exist
             navDropdownToggle = document.createElement("button");
             navDropdownToggle.className = settings.navDropdownToggle.substr(1);
             // Inject dropdown ul after navigation
-
-            navMenu.appendChild(navDropdownToggle);
+           navMenu.appendChild(navDropdownToggle);
         }
     };
+
+
+    /**
+     * Get innerwidth without padding
+     * @param element
+     * @returns {number}
+     */
+    var getElementContentWidth = function(element) {
+        var styles = window.getComputedStyle(element);
+        var padding = parseFloat(styles.paddingLeft) +
+            parseFloat(styles.paddingRight);
+
+        return element.clientWidth - padding;
+    }
 
 
     /**
@@ -196,12 +207,8 @@
      * @param elem
      * @returns {number}
      */
-    //Todo: Get width without padding!
-
     var calculateWidths = function () {
-
-
-        totalWidth = navWrapper.offsetWidth;
+        totalWidth = getElementContentWidth(navWrapper);
         //Check if parent is the navwrapper before calculating its width
         if (navDropdown.parentNode === navWrapper) {
             dropDownWidth = navDropdown.offsetWidth;
@@ -217,18 +224,7 @@
      * Move item to array
      * @param item
      */
-    priorityNav.doesItFit = function (checked) {
-
-        var checked, delay;
-
-        if(checked === 0){
-            delay = 0;
-        }else{
-            delay = settings.throttleDelay;
-        }
-
-        checked++;
-
+    priorityNav.doesItFit = function () {
         (debounce(function () {
 
             // Update width
@@ -236,13 +232,11 @@
 
             // Keep executing until all menu items that are overflowing are moved
             while (totalWidth < restWidth && navMenu.children.length > 0) {
-
                 //move item to dropdown
                 priorityNav.toDropdown();
                 //recalculate widths
                 calculateWidths()
             }
-
 
             // Keep executing until all menu items that are able to move back or moved
             while (totalWidth > breaks[breaks.length - 1]) {
@@ -258,7 +252,7 @@
             //Check if we need to show toggle menu button
             showToggle();
 
-        }, delay ))();
+        }, settings.throttleDelay ))();
     };
 
 
@@ -408,6 +402,7 @@
      * @param {Object} options User settings
      */
     priorityNav.init = function (options) {
+
         // Feature test.
         if (!supports){
             console.warn("This browser doesn't support priorityNav");
@@ -415,58 +410,51 @@
         }
         // Destroy any existing initializations
         priorityNav.destroy();
+
         // Merge user options with defaults
         settings = extend(defaults, options || {});
-        var self = document.querySelectorAll(settings.navWrapper);
 
-        return forEach(self, function(){
+        // Add class to HTML element to activate conditional CSS
+        document.documentElement.classList.add(settings.initClass);
 
-            console.log(self);
-            // Merge user options with defaults
-            settings = extend(defaults, options || {});
-            // Add class to HTML element to activate conditional CSS
-            document.documentElement.classList.add(settings.initClass);
+        // Store the wrapper element
+        navWrapper = document.querySelector(settings.navWrapper);
+        if (!navWrapper) {
+            console.warn("couldn't find the specified navWrapper element");
+            return
+        }
 
-            //Ran
-            var checked = 0;
+        // Store the menu element
+        navMenu = document.querySelector(settings.navWrapper + ' ' + settings.navMenu);
+        if (!navMenu) {
+            console.warn("couldn't find the specified navMenu element");
+            return
+        }
 
-            // Store html element
-            navWrapper = document.querySelector(settings.navWrapper);
-            if (!navWrapper) {
-                console.warn("couldn't find the specified navWrapper element");
-                return
-            }
-            navMenu = document.querySelector(settings.navWrapper + ' ' + settings.navMenu);
-            if (!navMenu) {
-                console.warn("couldn't find the specified navMenu element");
-                return
-            }
+        // Generated the needed html if it doesn't exist yet.
+        prepareHtml();
 
-            // Generated the needed html if it doesn't exist yet.
-            prepareHtml();
+        // Store the dropdown element
+        navDropdown = document.querySelector(settings.navWrapper + ' ' + settings.navDropdown);
+        if (!navDropdown) {
+            console.warn("couldn't find the specified navDropdown element");
+            return
+        }
 
-            navDropdown = document.querySelector(settings.navWrapper + ' ' + settings.navDropdown);
+        // Store the dropdown toggle element
+        navDropdownToggle = document.querySelector(settings.navDropdownToggle);
+        if (!navDropdownToggle) {
+            console.warn("couldn't find the specified navDropdownToggle element");
+            return
+        }
 
-            if (!navDropdown) {
-                console.warn("couldn't find the specified navDropdown element");
-                return
-            }
-            navDropdownToggle = document.querySelector(settings.navDropdownToggle);
-            if (!navDropdownToggle) {
-                console.warn("couldn't find the specified navDropdownToggle element");
-                return
-            }
+        // Event listeners
+        listeners();
 
+        // Start plugin by checking if menu items fits
+        priorityNav.doesItFit();
 
-
-            // Event listeners
-            listeners();
-
-            // Start plugin by checking if menu items fits
-            priorityNav.doesItFit(checked);
-        })
-
-    };
+     };
 
 
     /**
