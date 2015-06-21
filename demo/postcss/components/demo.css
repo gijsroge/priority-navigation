@@ -1,0 +1,7 @@
+.demo{
+	&-element{
+		padding: 10px;
+		background: white;
+		color: $black;
+	}
+}

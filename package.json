@@ -1,11 +1,46 @@
 {
   "name": "priority-nav",
-  "description": "Priority+ pattern navigation that hides menu items based on the viewport width.",
-  "repository": "https://github.com/gijsroge/priority-navigation",
-  "author": "@gijsroge",
+  "title": "priority-nav",
+  "version": "0.1.0",
+  "main": "dist/priority-navigation.js",
+  "description": "Priority+ pattern navigation that hides menu items if they don't fit on screen.",
+  "author": {
+    "name": "Gijs Rogé",
+    "url": "http://twitter.com/gijsroge"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gijsroge/priority-navigation.git"
+  },
+  "keywords": [
+    "priority+",
+    "responsive",
+    "navigation"
+  ],
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/gijsroge/priority-navigation/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/gijsroge/priority-navigation/issues"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
   "devDependencies": {
+    "load-grunt-tasks": "3.2.0",
+    "crayola": "0.0.1",
     "grunt": "0.4.5",
+    "grunt-bump": "0.3.1",
+    "grunt-contrib-compress": "0.13.0",
+    "grunt-contrib-concat": "0.5.1",
+    "grunt-contrib-jshint": "0.11.2",
+    "grunt-contrib-uglify": "0.9.1",
     "grunt-contrib-watch": "0.6.1",
-    "load-grunt-tasks": "3.1.0"
+    "jshint-stylish": "2.0.1",
+    "time-grunt": "1.2.1"
+  },
+  "scripts": {
+    "test": "grunt jshint"
   }
 }

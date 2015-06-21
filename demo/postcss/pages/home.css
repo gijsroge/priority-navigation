@@ -1,0 +1,16 @@
+body{
+	background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0) 100%);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.05);
+	color: $lightblack;
+}
+
+.example{
+	background-color: $blue;
+	color: white;
+	padding: 5rem 0;
+}
+
+h1{
+	font-size: 2.6rem;
+	margin-top: 0;
+}

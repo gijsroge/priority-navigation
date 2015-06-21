@@ -9,10 +9,10 @@ nav{
 }
 
 
-.nav{
-	white-space: nowrap;
+.nav,.nav2{
+
+    white-space: nowrap;
 	margin: 0 auto;
-	overflow: hidden;
 
 	&.is-open{
 		overflow: visible;
@@ -42,6 +42,7 @@ nav{
 	&__dropdown{
 		&-toggle{
 			background: transparent;
+            border: none;
 			position: relative;
 			padding-right: 35px;
 

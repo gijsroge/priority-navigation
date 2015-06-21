@@ -1,0 +1,10 @@
+.editorconfig
+.gitattributes
+.gitignore
+.jshintrc
+.travis.yml
+*.zip
+*.rar
+
+bower.json
+/example
