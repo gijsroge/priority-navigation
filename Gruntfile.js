@@ -55,8 +55,8 @@ module.exports = function(grunt) {
                 banner: "<%= meta.banner %>"
             },
             dist: {
-                src: ["<%= config.src %>/tabtab.js"],
-                dest: "<%= config.dist %>/tabtab.js"
+                src: ["<%= config.src %>/<%= pkg.name %>.js"],
+                dest: "<%= config.dist %>/<%= pkg.name %>.js"
             }
         },
 
@@ -66,8 +66,8 @@ module.exports = function(grunt) {
                 banner: "<%= meta.banner %>"
             },
             dist: {
-                src: ["<%= config.dist %>/tabtab.js"],
-                dest: "<%= config.dist %>/tabtab.min.js"
+                src: ["<%= config.dist %>/<%= pkg.name %>.js"],
+                dest: "<%= config.dist %>/<%= pkg.name %>.min.js"
             }
         },
 
@@ -77,7 +77,6 @@ module.exports = function(grunt) {
                 files: [
                     "bower.json",
                     "package.json",
-                    "tabtab.jquery.json"
                 ],
                 updateConfigs: ["pkg"],
                 commitMessage: "v%VERSION%",
