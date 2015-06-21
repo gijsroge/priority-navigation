@@ -1,6 +1,6 @@
 /**
  *
- * Name v0.0.1
+ * Name v0.1.0
  * Priority+ pattern navigation that hides menu items based on the viewport width.
  *
  * Structure based on https://github.com/cferdinandi UMD boilerplate
