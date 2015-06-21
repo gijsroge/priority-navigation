@@ -170,15 +170,16 @@
      * Check if dropdown ul is already on page before creating it
      * @param navWrapper
      */
-    var prepareHtml = function () {
-        if (!document.querySelector(settings.navDropdown)) {
+    var prepareHtml = function (_this) {
+        if (!_this.querySelector(settings.navDropdown)) {
             // Create nav dropdown if it doesn't already exist
             navDropdown = document.createElement("ul");
             navDropdown.className = settings.navDropdown.substr(1);
+
             // Inject dropdown ul after navigation
             navWrapper.appendChild(navDropdown);
         }
-        if (!document.querySelector(settings.navDropdownToggle)) {
+        if (!_this.querySelector(settings.navDropdownToggle)) {
             // Create nav dropdown if it doesn't already exist
             navDropdownToggle = document.createElement("button");
             navDropdownToggle.className = settings.navDropdownToggle.substr(1);
@@ -224,12 +225,24 @@
      * Move item to array
      * @param item
      */
-    priorityNav.doesItFit = function () {
+    priorityNav.doesItFit = function (instance) {
+        console.log(breaks);
+
+        var instance, delay;
+
+        if(instance === 0){
+            delay = 0;
+        }else{
+            delay = settings.throttleDelay;
+        }
+
+        instance++;
+
         (debounce(function () {
 
             // Update width
             calculateWidths();
-
+            console.log(totalWidth);
             // Keep executing until all menu items that are overflowing are moved
             while (totalWidth < restWidth && navMenu.children.length > 0) {
                 //move item to dropdown
@@ -252,7 +265,7 @@
             //Check if we need to show toggle menu button
             showToggle();
 
-        }, settings.throttleDelay ))();
+        }, delay ))();
     };
 
 
@@ -285,6 +298,7 @@
      */
     priorityNav.toDropdown = function () {
         //move last child of navigation menu to dropdown
+        console.log('toDropdown');
         if (navDropdown.firstChild && navMenu.children.length > 0) {
             navDropdown.insertBefore(navMenu.lastElementChild, navDropdown.firstChild);
         } else if (navMenu.children.length > 0) {
@@ -345,15 +359,17 @@
     /**
      * Bind eventlisteners
      */
-    var listeners = function () {
+    var listeners = function (_this) {
+
         // Check if an item needs to move
         window.addEventListener('resize', priorityNav.doesItFit);
 
         // Toggle dropdown
         navDropdownToggle.addEventListener('click', function () {
-            toggleClass(navDropdown, 'show');
-            toggleClass(navDropdownToggle, 'is-open');
-            toggleClass(navWrapper, 'is-open');
+            var wrapper = getClosest(this, settings.navWrapper);
+            toggleClass(wrapper.querySelector(settings.navWrapper + ' ' + settings.navDropdown), 'show');
+            toggleClass(this, 'is-open');
+            toggleClass(wrapper, 'is-open');
         });
 
         /*
@@ -361,6 +377,7 @@
          */
         document.addEventListener('click', function (event) {
             if (!getClosest(event.target, settings.navDropdown) && event.target !== navDropdownToggle) {
+                var wrapper = getClosest(this, settings.navWrapper);
                 navDropdown.classList.remove('show');
                 navDropdownToggle.classList.remove('is-open');
                 navWrapper.classList.remove('is-open');
@@ -403,6 +420,9 @@
      */
     priorityNav.init = function (options) {
 
+        // Reference this
+        var _this = document.querySelectorAll(options.navWrapper);
+
         // Feature test.
         if (!supports){
             console.warn("This browser doesn't support priorityNav");
@@ -414,45 +434,53 @@
         // Merge user options with defaults
         settings = extend(defaults, options || {});
 
+
+        return forEach(document.querySelectorAll(options.navWrapper), function(_this){
+
+            // Store the wrapper element
+            navWrapper = _this;
+            if (!navWrapper) {
+                console.warn("couldn't find the specified navWrapper element");
+                return
+            }
+
+            // Store the menu element
+            navMenu = _this.querySelector(settings.navWrapper + ' ' + settings.navMenu);
+            if (!navMenu) {
+                console.warn("couldn't find the specified navMenu element");
+                return
+            }
+
+            // Generated the needed html if it doesn't exist yet.
+            prepareHtml(_this);
+
+            // Store the dropdown element
+            navDropdown = _this.querySelector(settings.navWrapper + ' ' + settings.navDropdown);
+            if (!navDropdown) {
+                console.warn("couldn't find the specified navDropdown element");
+                return
+            }
+
+            // Store the dropdown toggle element
+            navDropdownToggle = _this.querySelector(settings.navDropdownToggle);
+            if (!navDropdownToggle) {
+                console.warn("couldn't find the specified navDropdownToggle element");
+                return
+            }
+
+            //Ran
+            var instance = 0;
+
+            // Event listeners
+            listeners(_this);
+
+            // Start plugin by checking if menu items fits
+            priorityNav.doesItFit(instance);
+
+        });
+
         // Add class to HTML element to activate conditional CSS
         document.documentElement.classList.add(settings.initClass);
-
-        // Store the wrapper element
-        navWrapper = document.querySelector(settings.navWrapper);
-        if (!navWrapper) {
-            console.warn("couldn't find the specified navWrapper element");
-            return
-        }
-
-        // Store the menu element
-        navMenu = document.querySelector(settings.navWrapper + ' ' + settings.navMenu);
-        if (!navMenu) {
-            console.warn("couldn't find the specified navMenu element");
-            return
-        }
-
-        // Generated the needed html if it doesn't exist yet.
-        prepareHtml();
-
-        // Store the dropdown element
-        navDropdown = document.querySelector(settings.navWrapper + ' ' + settings.navDropdown);
-        if (!navDropdown) {
-            console.warn("couldn't find the specified navDropdown element");
-            return
-        }
-
-        // Store the dropdown toggle element
-        navDropdownToggle = document.querySelector(settings.navDropdownToggle);
-        if (!navDropdownToggle) {
-            console.warn("couldn't find the specified navDropdownToggle element");
-            return
-        }
-
-        // Event listeners
-        listeners();
-
-        // Start plugin by checking if menu items fits
-        priorityNav.doesItFit();
 
      };
 
