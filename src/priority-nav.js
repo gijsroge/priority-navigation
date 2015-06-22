@@ -1,3 +1,4 @@
+/*! priority-nav - v0.1.0 | (c) 2015 @gijsroge | MIT license |  */
 /**
  *
  * Name v0.1.0
@@ -32,7 +33,7 @@
     var settings = {};
     var instance = 0;
     var count = 0;
-    var navWrapper, totalWidth, restWidth, navMenu, navDropdown, navDropdownToggle, dropDownWidth;
+    var navWrapper, totalWidth, restWidth, navMenu, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
 
     /**
      * Default settings
@@ -46,7 +47,7 @@
         navDropdownToggle: ".nav__dropdown-toggle",
         navDropdownLabel: "more",
         throttleDelay: 50,
-        offsetPixels: 25,
+        offsetPixels: 0,
         childrenCount: false,
 
         //Callbacks
@@ -179,9 +180,9 @@
              * Create dropdow menu
              * @type {HTMLElement}
              */
-            var toggleWrapper = document.createElement("span");
-            var navDropdown = document.createElement("ul");
-            var navDropdownToggle = document.createElement("button");
+            toggleWrapper = document.createElement("span");
+            navDropdown = document.createElement("ul");
+            navDropdownToggle = document.createElement("button");
 
             /**
              * Set label for dropdown toggle
@@ -202,6 +203,7 @@
             toggleWrapper.style.position = "relative";
             toggleWrapper.appendChild(navDropdown);
             toggleWrapper.appendChild(navDropdownToggle);
+            toggleWrapper.classList.add(settings.navDropdown.substr(1)+'-wrapper');
         }
     };
 
@@ -233,17 +235,15 @@
         } else {
             dropDownWidth = 0;
         }
-        restWidth = getChildrenWidth(_this) - dropDownWidth + settings.offsetPixels;
+        restWidth = getChildrenWidth(_this) + settings.offsetPixels;
     };
-
 
 
     /**
      * Move item to array
      * @param item
      */
-    var doesItFit = function (instance, _this) {
-
+    priorityNav.doesItFit = function (instance, _this) {
         /**
          * Check if it is the first run
          */
@@ -328,6 +328,7 @@
      * Move item to dropdown
      */
     priorityNav.toDropdown = function (_this, identifier) {
+
 
         /**
          * move last child of navigation menu to dropdown
@@ -423,12 +424,12 @@
         // Check if an item needs to move
         if(window.attachEvent) {
             window.attachEvent("onresize", function() {
-                doesItFit(instance, _this);
+                if(priorityNav.doesItFit)priorityNav.doesItFit(instance, _this);
             });
         }
         else if(window.addEventListener) {
             window.addEventListener("resize", function() {
-                doesItFit(instance, _this);
+                if(priorityNav.doesItFit)priorityNav.doesItFit(instance, _this);
             }, true);
         }
 
@@ -465,17 +466,35 @@
 
 
     /**
+     * Remove function
+     */
+    Element.prototype.remove = function() {
+        this.parentElement.removeChild(this);
+    }
+    NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+        for(var i = 0, len = this.length; i < len; i++) {
+            if(this[i] && this[i].parentElement) {
+                this[i].parentElement.removeChild(this[i]);
+            }
+        }
+    }
+
+
+    /**
      * Destroy the current initialization.
      * @public
      */
-    priorityNav.destroy = function () {
+    priorityNav.destroy = function (_this) {
         // If plugin isn"t already initialized, stop
         if (!settings) return;
         // Remove feedback class
         document.documentElement.classList.remove(settings.initClass);
+        // Remove toggle
+        toggleWrapper.remove();
         // Remove settings
         settings = null;
         delete priorityNav.init;
+        delete priorityNav.doesItFit;
     };
 
     /**
@@ -576,7 +595,7 @@
             /**
              * Start first check
              */
-            doesItFit(instance, _this);
+            priorityNav.doesItFit(instance, _this);
 
         });
 
@@ -589,7 +608,7 @@
          * Add class to HTML element to activate conditional CSS
          */
         document.documentElement.classList.add(settings.initClass);
-     };
+    };
 
 
     /**
