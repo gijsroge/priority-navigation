@@ -1,0 +1,40 @@
+{
+  "name": "priority-nav",
+  "title": "priority-nav",
+  "version": "1.0.0",
+  "main": [
+    "dist/priority-nav.js",
+    "dist/priority-nav-core.css"
+  ],
+  "description": "Priority+ pattern navigation that hides menu items if they don't fit on screen.",
+  "homepage": "http://gijsroge.github.io/priority-nav.js/",
+  "author": {
+    "name": "Gijs Rogé",
+    "url": "http://twitter.com/gijsroge"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gijsroge/priority-navigation.git"
+  },
+  "keywords": [
+    "priority+",
+    "responsive",
+    "navigation"
+  ],
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/gijsroge/priority-navigation/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/gijsroge/priority-navigation/issues"
+  },
+  "main": "dist/tabtab.js",
+  "ignore": [
+    "**/.*",
+    "*.json",
+    "src",
+    "node_modules",
+    "bower_components",
+    "Gruntfile.js"
+  ]
+}
