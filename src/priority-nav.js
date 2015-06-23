@@ -42,7 +42,7 @@
     var defaults = {
         initClass: "js-priorityNav",
         navWrapper: "nav",
-        navMenu: ".nav__menu",
+        navMenu: "ul",
         navDropdown: ".nav__dropdown",
         navDropdownToggle: ".nav__dropdown-toggle",
         navDropdownLabel: "more",
