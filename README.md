@@ -3,8 +3,6 @@ PriorityNav is a lightweight pure javascript plugin that will move your menu ite
 ![Priority Navigation demo](http://gijsroge.github.io/priority-nav.js/priority-nav-demo.gif)
 
 
-----------
-
 
 Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
 
@@ -19,7 +17,7 @@ Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
 - **Callbacks**<br>Callbacks are fired when an item is moved or moved back from the main navigation.
 
 ### Installation
-**Download and load plugin files**
+Download and load plugin files
 ```html
 <!DOCTYPE html>
 <head>
@@ -33,11 +31,11 @@ Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
 **npm:** `npm --install priority-nav.js`
 **bower:** `bower --install priority-nav.js`
 
-**Call plugin without options**
+Call plugin without options
 ```js
 var priorityNav = priorityNav.init();
 ```
-**Ideal html structure**
+Ideal html structure
 ```html
 <nav>
     <ul> <- needs to be inline-block
@@ -51,9 +49,14 @@ var priorityNav = priorityNav.init();
 
 ### Building the source files
 ```
+#cloning repository
 git clone https://github.com/gijsroge/priority-navigation.git
 cd priority-navigation
+
+#dependencies
 npm install
+
+#build files to dist folder
 grunt build
 ```
 
