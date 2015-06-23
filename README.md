@@ -30,7 +30,7 @@ Load plugin files
 </body>
 ```
 
-Call plugin without options
+Call plugin without any options.
 ```js
 var priorityNav = priorityNav.init();
 ```
@@ -44,6 +44,23 @@ Ideal html structure
         <li>menu item</li>
     </ul>
 </nav>
+```
+
+### Options
+```js
+initClass:          "js-priorityNav", // Class that will be printed on html element to allow conditional css styling.
+mainNavWrapper:     "nav", // mainnav wrapper selector (must be direct parent from navMenu)
+mainNav:            "ul", // mainnav selector.
+navDropdown:        ".nav__dropdown", // class used for the dropdown.
+navDropdownToggle:  ".nav__dropdown-toggle", // class used for the dropdown toggle.
+navDropdownLabel:   "more", // Text that is used for the dropdown toggle.
+throttleDelay:      50, // this will throttle the calculating logic on resize because i'm a responsible dev.
+offsetPixels:       0, // increase to decrease the time it takes to move an item.
+count:              true, // prints the amount of items are moved to the attribute data-count.
+
+//Callbacks
+moved: function () {}, // executed when item is moved to dropdown
+movedBack: function () {} // executed when item is moved back to main menu
 ```
 
 ### Package managers
