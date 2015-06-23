@@ -420,12 +420,12 @@
         // Check if an item needs to move
         if(window.attachEvent) {
             window.attachEvent("onresize", function() {
-                if(priorityNav.doesItFit)priorityNav.doesItFit(instance, _this);
+                if(priorityNav.doesItFit)priorityNav.doesItFit(_this);
             });
         }
         else if(window.addEventListener) {
             window.addEventListener("resize", function() {
-                if(priorityNav.doesItFit)priorityNav.doesItFit(instance, _this);
+                if(priorityNav.doesItFit)priorityNav.doesItFit(_this);
             }, true);
         }
 
