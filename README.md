@@ -21,33 +21,42 @@ Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
 ### Installation
 **Download and load plugin files**
 ```html
-    <!DOCTYPE html>
-    <head>
-		<link rel="stylesheet" href="priority-nav-core.css">
-	</head>
-	
-	<body>
-	    <script async src=”priority-nav.js”></script>
-    </body>
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="priority-nav-core.css">
+</head>
+
+<body>
+    <script async src=”priority-nav.js”></script>
+</body>
 ```
 **npm:** `npm --install priority-nav.js`
 **bower:** `bower --install priority-nav.js`
 
 **Call plugin without options**
 ```js
-    var priorityNav = priorityNav.init();
+var priorityNav = priorityNav.init();
 ```
 **Ideal html structure**
 ```html
-    <nav>
-        <ul>  // needs to be inline-block
-            <li>menu item</li>
-            <li>menu item</li>
-            <li>menu item</li>
-            <li>menu item</li>
-        </ul>
-     </nav>
+<nav>
+    <ul> <- needs to be inline-block
+        <li>menu item</li>
+        <li>menu item</li>
+        <li>menu item</li>
+        <li>menu item</li>
+    </ul>
+</nav>
 ```
+
+### Building the source files
+```
+git clone https://github.com/gijsroge/priority-navigation.git
+cd priority-navigation
+npm install
+grunt build
+```
+
 ### IE9 Support
 
 To support Internet Explorer 9 and lower [classList.js](https://github.com/remy/polyfills/blob/master/classList.js/) must be added your page.
