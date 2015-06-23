@@ -6,6 +6,5 @@
 *.zip
 *.rar
 
-bower.json
 /example
 /node_modules
