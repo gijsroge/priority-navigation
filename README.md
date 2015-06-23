@@ -17,10 +17,7 @@ Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
 - **Callbacks**<br>Callbacks are fired when an item is moved or moved back from the main navigation.
 
 ### Installation
-Download and load plugin files
-
-**npm:** `npm --install priority-nav.js`
-**bower:** `bower --install priority-nav.js`
+Load plugin files
 
 ```html
 <!DOCTYPE html>
@@ -48,6 +45,10 @@ Ideal html structure
     </ul>
 </nav>
 ```
+
+### Package managers
+**npm:** `npm --install priority-nav.js`
+**bower:** `bower --install priority-nav.js`
 
 ### Building the source files
 ```
