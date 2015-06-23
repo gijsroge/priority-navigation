@@ -1,4 +1,6 @@
-.editorconfig
-.gitattributes
-.travis.yml
+**/.*
+*.json
+/src
 /node_modules
+/bower_components
+Gruntfile.js
