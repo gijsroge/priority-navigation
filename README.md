@@ -47,9 +47,8 @@ Ideal html structure
 ```
 
 ### Package managers
-**npm:** `npm --install priority-nav.js`
-
-**bower:** `bower --install priority-nav.js`
+- **npm:** `npm --install priority-nav.js`
+- **bower:** `bower --install priority-nav.js`
 
 ### Building the source files
 ```
