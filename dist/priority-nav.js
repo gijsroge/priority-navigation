@@ -240,11 +240,16 @@
      * Move item to array
      * @param item
      */
-    priorityNav.doesItFit = function (instance, _this) {
+    priorityNav.doesItFit = function (_this) {
+
         /**
          * Check if it is the first run
          */
-        var delay = instance === 0 ? delay : settings.throttleDelay;
+        var delay = _this.getAttribute("instance") === 0 ? delay : settings.throttleDelay;
+
+        /**
+         * Increase instance
+         */
         instance++;
 
         /**
@@ -595,7 +600,7 @@
             /**
              * Start first check
              */
-            priorityNav.doesItFit(instance, _this);
+            priorityNav.doesItFit(_this);
 
         });
 
