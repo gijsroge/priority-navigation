@@ -13,7 +13,7 @@ PriorityNav is a lightweight pure javascript plugin that will move your menu ite
 - **Non obstructive menu dropdown**<br>The dropdown menu can be closed by clicking outside and pressing escape.
 - **Callbacks**<br>Callbacks are fired when an item is moved or moved back from the main navigation.
 
-### Installation
+### Usage
 Load plugin files
 
 ```html
