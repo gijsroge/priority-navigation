@@ -1,16 +1,8 @@
-/*! priority-nav - v0.1.0 | (c) 2015 @gijsroge | MIT license |  */
-/*! priority-nav - v0.1.0 | (c) 2015 @gijsroge | MIT license |  */
-/**
- *
- * Name v0.1.0
- * Priority+ pattern navigation that hides menu items based on the viewport width.
- *
- * Structure based on https://github.com/cferdinandi UMD boilerplate
- * Code inspired by http://codepen.io/lukejacksonn/pen/PwmwWV
- *
- * Free to use under the MIT License.
- * http://twitter.com/GijsRoge
- *
+/*
+ * priority-nav - v0.1.0 | (c) 2015 @gijsroge | MIT license
+ * Repository: https://github.com/gijsroge/priority-navigation.git
+ * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
+ * Demo: http://gijsroge.github.io/priority-nav.js/
  */
 
 (function (root, factory) {

@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "main": "dist/priority-navigation.js",
   "description": "Priority+ pattern navigation that hides menu items if they don't fit on screen.",
+  "homepage": "http://gijsroge.github.io/priority-nav.js/",
   "author": {
     "name": "Gijs Rogé",
     "url": "http://twitter.com/gijsroge"

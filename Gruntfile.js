@@ -19,9 +19,12 @@ module.exports = function(grunt) {
         pkg: require("./package"),
 
         meta: {
-            banner: "/*! <%= pkg.name %> - v<%= pkg.version %> | " +
-            "(c) <%= grunt.template.today('yyyy') %> @gijsroge | " +
-            "<%= pkg.license.type %> license | <%= pkg.homepage %> */\n"
+            banner: "/*\n" +
+            " * <%= pkg.name %> - v<%= pkg.version %> | (c) <%= grunt.template.today('yyyy') %> @gijsroge | <%= pkg.license.type %> license\n" +
+            " * Repository: <%= pkg.repository.url %>\n" +
+            " * Description: <%= pkg.description %>\n" +
+            " * Demo: <%= pkg.homepage %>\n" +
+            " */\n"
         },
 
         // Watches files for changes and runs tasks based on the changed files
@@ -55,7 +58,7 @@ module.exports = function(grunt) {
                 banner: "<%= meta.banner %>"
             },
             dist: {
-                src: ["<%= config.src %>/<%= pkg.name %>.js"],
+                src: "<%= config.src %>/<%= pkg.name %>.js",
                 dest: "<%= config.dist %>/<%= pkg.name %>.js"
             }
         },
@@ -75,10 +78,10 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 options: {
-                    outputStyle: 'expanded'
+                    outputStyle: "expanded"
                 },
                 files: {
-                    '<%= config.dist %>/<%= pkg.name %>-core.css': '<%= config.src %>/<%= pkg.name %>-core.scss',
+                    "<%= config.dist %>/<%= pkg.name %>-core.css": "<%= config.src %>/<%= pkg.name %>-core.scss",
                 }
             }
         },

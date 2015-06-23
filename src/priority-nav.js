@@ -1,16 +1,3 @@
-/**
- *
- * Name v0.1.0
- * Priority+ pattern navigation that hides menu items based on the viewport width.
- *
- * Structure based on https://github.com/cferdinandi UMD boilerplate
- * Code inspired by http://codepen.io/lukejacksonn/pen/PwmwWV
- *
- * Free to use under the MIT License.
- * http://twitter.com/GijsRoge
- *
- */
-
 (function (root, factory) {
     if (typeof define === "function" && define.amd) {
         define("priorityNav", factory(root));
