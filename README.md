@@ -18,6 +18,9 @@ Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
 
 ### Installation
 Download and load plugin files
+**npm:** `npm --install priority-nav.js`
+**bower:** `bower --install priority-nav.js`
+
 ```html
 <!DOCTYPE html>
 <head>
@@ -28,8 +31,6 @@ Download and load plugin files
     <script async src=”priority-nav.js”></script>
 </body>
 ```
-**npm:** `npm --install priority-nav.js`
-**bower:** `bower --install priority-nav.js`
 
 Call plugin without options
 ```js
