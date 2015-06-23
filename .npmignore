@@ -1,10 +1,4 @@
 .editorconfig
 .gitattributes
-.gitignore
-.jshintrc
 .travis.yml
-*.zip
-*.rar
-
-/example
 /node_modules
