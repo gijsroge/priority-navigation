@@ -1,15 +1,8 @@
 # PriorityNavigation.js
 PriorityNav is a lightweight pure javascript plugin that will move your menu items if they don't fit its parent.
 ![Priority Navigation demo](http://gijsroge.github.io/priority-nav.js/priority-nav-demo.gif)
-
-
-
 Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
-
-
 ----------
-
-
 ### Features
 - **No dependencies**<br>The plugin is written in pure javascript making it fast and lean.
 - **Smart calculation of available space**<br>It automaticly looks for the main navigation's siblings and calculates remaining space.
@@ -81,7 +74,6 @@ grunt build
 ```
 
 ### IE9 Support
-
 To support Internet Explorer 9 and lower [classList.js](https://github.com/remy/polyfills/blob/master/classList.js/) must be added your page.
 
 ```html
@@ -89,7 +81,6 @@ To support Internet Explorer 9 and lower [classList.js](https://github.com/remy/
 ```
 
 ### IE8 Support
-
 To support Internet Explorer 8, [es5-shim](https://github.com/kriskowal/es5-shim/) and classList.js from above must be added your page.
 
 ```html
