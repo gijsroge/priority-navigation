@@ -471,7 +471,7 @@
         this.parentElement.removeChild(this);
     };
 
-    /*global HTMLCollection*/
+    /*global HTMLCollection */
     NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
         for(var i = 0, len = this.length; i < len; i++) {
             if(this[i] && this[i].parentElement) {
@@ -497,6 +497,7 @@
         delete priorityNav.init;
         delete priorityNav.doesItFit;
     };
+
 
     /**
      * insertAfter function

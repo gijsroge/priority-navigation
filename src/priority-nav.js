@@ -202,7 +202,7 @@
         toggleWrapper.style.position = "relative";
         toggleWrapper.appendChild(navDropdown);
         toggleWrapper.appendChild(navDropdownToggle);
-        toggleWrapper.classList.add(settings.navDropdown.substr(1)+'-wrapper');
+        toggleWrapper.classList.add(settings.navDropdown.substr(1)+"-wrapper");
     };
 
 
@@ -468,7 +468,9 @@
      */
     Element.prototype.remove = function() {
         this.parentElement.removeChild(this);
-    }
+    };
+
+    /*global HTMLCollection */
     NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
         for(var i = 0, len = this.length; i < len; i++) {
             if(this[i] && this[i].parentElement) {
