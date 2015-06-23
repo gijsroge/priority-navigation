@@ -94,7 +94,7 @@ module.exports = function(grunt) {
                     "package.json",
                 ],
                 updateConfigs: ["pkg"],
-                commitMessage: "v%VERSION%",
+                commitMessage: "released v%VERSION%",
                 commitFiles: [
                     "bower.json",
                     "package.json",
@@ -105,19 +105,6 @@ module.exports = function(grunt) {
                 pushTo: "origin master"
             }
         },
-
-        //create package
-        compress: {
-            main: {
-                options: {
-                    archive: "<%= pkg.name %>-v<%= pkg.version %>.zip"
-                },
-                expand: true,
-                cwd: "<%= config.dist %>/",
-                src: ["**/*"],
-                dest: "/"
-            }
-        }
     });
 
     // Build task
@@ -127,7 +114,6 @@ module.exports = function(grunt) {
     grunt.registerTask("release", [
         "bump-only",
         "build",
-        "compress:main",
         "bump-commit"
     ]);
 };
