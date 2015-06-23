@@ -90,7 +90,7 @@ To support Internet Explorer 9 and lower [classList.js](https://github.com/remy/
 
 ### IE8 Support
 
-To support Internet Explorer 8, [es5-shim](https://github.com/kriskowal/es5-shim/) must be added your page.
+To support Internet Explorer 8, [es5-shim](https://github.com/kriskowal/es5-shim/) and classList.js from above must be added your page.
 
 ```html
 <!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->

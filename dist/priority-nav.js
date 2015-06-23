@@ -25,27 +25,27 @@
     var settings = {};
     var instance = 0;
     var count = 0;
-    var navWrapper, totalWidth, restWidth, navMenu, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
+    var mainNavWrapper, totalWidth, restWidth, mainNav, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
 
     /**
      * Default settings
-     * @type {{initClass: string, navDropdown: string, navDropdownToggle: string, navWrapper: string, itemToDropdown: Function, itemToNav: Function}}
+     * @type {{initClass: string, navDropdown: string, navDropdownToggle: string, mainNavWrapper: string, moved: Function, movedBack: Function}}
      */
     var defaults = {
         initClass: "js-priorityNav",
-        navWrapper: "nav",
-        navMenu: "ul",
+        mainNavWrapper: "nav",
+        mainNav: "ul",
         navDropdown: ".nav__dropdown",
         navDropdownToggle: ".nav__dropdown-toggle",
         navDropdownLabel: "more",
         throttleDelay: 50,
         offsetPixels: 0,
-        childrenCount: true,
+        count: true,
 
         //Callbacks
-        itemToDropdown: function () {
+        moved: function () {
         },
-        itemToNav: function () {
+        movedBack: function () {
         }
     };
 
@@ -164,7 +164,7 @@
 
     /**
      * Check if dropdown menu is already on page before creating it
-     * @param navWrapper
+     * @param mainNavWrapper
      */
     var prepareHtml = function (_this) {
         /**
@@ -185,7 +185,7 @@
         /**
          * Move elements to the right spot
          */
-        _this.insertAfter(toggleWrapper, _this.querySelector(navMenu));
+        _this.insertAfter(toggleWrapper, _this.querySelector(mainNav));
         toggleWrapper.appendChild(navDropdown);
         toggleWrapper.appendChild(navDropdownToggle);
 
@@ -271,7 +271,7 @@
             /**
              * Keep executing until all menu items that are overflowing are moved
              */
-            while (totalWidth < restWidth && _this.querySelector(navMenu).children.length > 0) {
+            while (totalWidth < restWidth && _this.querySelector(mainNav).children.length > 0) {
                 //move item to dropdown
                 priorityNav.toDropdown(_this, identifier);
                 //recalculate widths
@@ -335,10 +335,10 @@
         /**
          * move last child of navigation menu to dropdown
          */
-        if (_this.querySelector(navDropdown).firstChild && _this.querySelector(navMenu).children.length > 0) {
-            _this.querySelector(navDropdown).insertBefore(_this.querySelector(navMenu).lastElementChild, _this.querySelector(navDropdown).firstChild);
-        } else if (_this.querySelector(navMenu).children.length > 0) {
-            _this.querySelector(navDropdown).appendChild(_this.querySelector(navMenu).lastElementChild);
+        if (_this.querySelector(navDropdown).firstChild && _this.querySelector(mainNav).children.length > 0) {
+            _this.querySelector(navDropdown).insertBefore(_this.querySelector(mainNav).lastElementChild, _this.querySelector(navDropdown).firstChild);
+        } else if (_this.querySelector(mainNav).children.length > 0) {
+            _this.querySelector(navDropdown).appendChild(_this.querySelector(mainNav).lastElementChild);
         }
 
         /**
@@ -354,14 +354,14 @@
         /**
          * update count on dropdown toggle button
          */
-        if (_this.querySelector(navMenu).children.length > 0 && settings.childrenCount) {
+        if (_this.querySelector(mainNav).children.length > 0 && settings.count) {
             updateCount(_this, identifier);
         }
 
         /**
          * If item has been moved to dropdown trigger the callback
          */
-        settings.itemToDropdown();
+        settings.moved();
     };
 
 
@@ -373,7 +373,7 @@
         /**
          * move last child of navigation menu to dropdown
          */
-        if (_this.querySelector(navDropdown).children.length > 0) _this.querySelector(navMenu).appendChild(_this.querySelector(navDropdown).firstElementChild);
+        if (_this.querySelector(navDropdown).children.length > 0) _this.querySelector(mainNav).appendChild(_this.querySelector(navDropdown).firstElementChild);
 
         /**
          * remove last breakpoint
@@ -388,14 +388,14 @@
         /**
          * update count on dropdown toggle button
          */
-        if (_this.querySelector(navMenu).children.length > 0 && settings.childrenCount) {
+        if (_this.querySelector(mainNav).children.length > 0 && settings.count) {
             updateCount(_this, identifier);
         }
 
         /**
          * If item has been moved back to the main menu trigger the callback
          */
-        settings.itemToNav();
+        settings.movedBack();
     };
 
 
@@ -461,7 +461,7 @@
             if (evt.keyCode === 27) {
                 navDropdown.classList.remove("show");
                 navDropdownToggle.classList.remove("is-open");
-                navWrapper.classList.remove("is-open");
+                mainNavWrapper.classList.remove("is-open");
             }
         };
     };
@@ -533,7 +533,7 @@
          * Store nodes
          * @type {NodeList}
          */
-        var elements = document.querySelectorAll(settings.navWrapper);
+        var elements = document.querySelectorAll(settings.mainNavWrapper);
 
         /**
          * Loop over every instance and reference _this
@@ -554,18 +554,18 @@
             /**
              * Store the wrapper element
              */
-            navWrapper = _this;
-            if (!navWrapper) {
-                console.warn("couldn't find the specified navWrapper element");
+            mainNavWrapper = _this;
+            if (!mainNavWrapper) {
+                console.warn("couldn't find the specified mainNavWrapper element");
                 return;
             }
 
             /**
              * Store the menu elementStore the menu element
              */
-            navMenu = settings.navMenu;
-            if (!_this.querySelector(navMenu)) {
-                console.warn("couldn't find the specified navMenu element");
+            mainNav = settings.mainNav;
+            if (!_this.querySelector(mainNav)) {
+                console.warn("couldn't find the specified mainNav element");
                 return;
             }
 
