@@ -71,6 +71,18 @@ module.exports = function(grunt) {
             }
         },
 
+        // Generate css files
+        sass: {
+            dist: {
+                options: {
+                    outputStyle: 'expanded'
+                },
+                files: {
+                    '<%= config.dist %>/<%= pkg.name %>-core.css': '<%= config.src %>/<%= pkg.name %>-core.scss',
+                }
+            }
+        },
+
         // Increment version
         bump: {
             options: {
@@ -106,7 +118,7 @@ module.exports = function(grunt) {
     });
 
     // Build task
-    grunt.registerTask("build", ["jshint", "concat:dist", "uglify:dist"]);
+    grunt.registerTask("build", ["jshint", "sass:dist", "concat:dist", "uglify:dist"]);
 
     // Release task
     grunt.registerTask("release", [
