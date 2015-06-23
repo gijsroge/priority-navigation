@@ -175,20 +175,27 @@
          */
         navDropdownToggle.innerHTML = settings.navDropdownLabel;
 
-        /**
-         * Add classes so we can target elements
-         */
-        navDropdown.classList.add(settings.navDropdown.substr(1));
-        navDropdownToggle.classList.add(settings.navDropdownToggle.substr(1));
 
         /**
          * Move elements to the right spot
          */
         _this.insertAfter(toggleWrapper, _this.querySelector(navMenu));
-        toggleWrapper.style.position = "relative";
         toggleWrapper.appendChild(navDropdown);
         toggleWrapper.appendChild(navDropdownToggle);
+
+        /**
+         * Add classes so we can target elements
+         */
+        navDropdown.classList.add(settings.navDropdown.substr(1));
+        navDropdown.classList.add("priority-nav__dropdown");
+
+        navDropdownToggle.classList.add(settings.navDropdownToggle.substr(1));
+        navDropdownToggle.classList.add("priority-nav__dropdown-toggle");
+
         toggleWrapper.classList.add(settings.navDropdown.substr(1)+"-wrapper");
+        toggleWrapper.classList.add("priority-nav__wrapper");
+
+        _this.classList.add("priority-nav");
     };
 
 
@@ -289,13 +296,13 @@
      */
     var showToggle = function (_this, identifier) {
         if (breaks[identifier].length < 1) {
-            _this.querySelector(navDropdownToggle).classList.add("is-hidden");
-            _this.querySelector(navDropdownToggle).classList.remove("is-visible");
-            _this.classList.remove("has-dropdown");
+            _this.querySelector(navDropdownToggle).classList.add("priority-nav-is-hidden");
+            _this.querySelector(navDropdownToggle).classList.remove("priority-nav-is-visible");
+            _this.classList.remove("priority-nav-has-dropdown");
         } else {
-            _this.querySelector(navDropdownToggle).classList.add("is-visible");
-            _this.querySelector(navDropdownToggle).classList.remove("is-hidden");
-            _this.classList.add("has-dropdown");
+            _this.querySelector(navDropdownToggle).classList.add("priority-nav-is-visible");
+            _this.querySelector(navDropdownToggle).classList.remove("priority-nav-is-hidden");
+            _this.classList.add("priority-nav-has-dropdown");
         }
     };
 

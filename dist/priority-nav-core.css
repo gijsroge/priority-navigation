@@ -7,14 +7,22 @@
  */
 .priority-nav {
   white-space: nowrap;
-}
-
-.priority-nav li, .priority-nav ul {
   /*
     * Makes sure the menu's are inline-block so they don't take up
     * the entire width of its parent. This will break the plugin.
     */
+}
+
+.priority-nav ul {
   display: inline-block;
+}
+
+.priority-nav li {
+  display: inline-block;
+}
+
+.priority-nav__wrapper {
+  position: relative;
 }
 
 .priority-nav__dropdown {

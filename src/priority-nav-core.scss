@@ -10,14 +10,19 @@
 
   white-space: nowrap; // prevent flash of unstyled content
 
-  li,ul{
-    /*
+  /*
     * Makes sure the menu's are inline-block so they don't take up
     * the entire width of its parent. This will break the plugin.
     */
+  ul{
     display: inline-block;
   }
-
+  li{
+    display: inline-block;
+  }
+  &__wrapper{
+    position: relative;
+  }
   &__dropdown{
     position: absolute;
   }
