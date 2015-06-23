@@ -22,7 +22,7 @@ Load plugin files
 </head>
 
 <body>
-    <script async src=”priority-nav.js”></script>
+    <script async src="priority-nav.js"></script>
 </body>
 ```
 
