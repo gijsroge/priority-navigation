@@ -46,8 +46,8 @@ Ideal html structure
 ### Options
 ```js
 initClass:          "js-priorityNav", // Class that will be printed on html element to allow conditional css styling.
-mainNavWrapper:     "nav", // mainnav wrapper selector (must be direct parent from navMenu)
-mainNav:            "ul", // mainnav selector.
+mainNavWrapper:     "nav", // mainnav wrapper selector (must be direct parent from mainNav)
+mainNav:            "ul", // mainnav selector. (must be inline-block)
 navDropdown:        ".nav__dropdown", // class used for the dropdown.
 navDropdownToggle:  ".nav__dropdown-toggle", // class used for the dropdown toggle.
 navDropdownLabel:   "more", // Text that is used for the dropdown toggle.
