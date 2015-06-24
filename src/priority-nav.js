@@ -316,7 +316,7 @@
      * Update count on dropdown toggle button
      */
     var updateCount = function (_this, identifier) {
-        _this.querySelector(navDropdownToggle).dataset.count = breaks[identifier].length;
+        _this.querySelector(navDropdownToggle).setAttribute("count", breaks[identifier].length);
     };
 
 
