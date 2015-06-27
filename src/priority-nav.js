@@ -291,12 +291,12 @@
             /**
              * Keep executing until all menu items that are overflowing are moved
              */
-            while (totalWidth < restWidth || viewportWidth < settings.breakPoint && _this.querySelector(mainNav).children.length > 0) {
+            while (totalWidth < restWidth  && _this.querySelector(mainNav).children.length > 0 || viewportWidth < settings.breakPoint && _this.querySelector(mainNav).children.length > 0) {
                 //move item to dropdown
                 priorityNav.toDropdown(_this, identifier);
                 //recalculate widths
                 calculateWidths(_this, identifier);
-
+                //update dropdownToggle label
                 if(viewportWidth < settings.breakPoint) updateLabel(_this, identifier, settings.navDropdownBreakpointLabel);
             }
 
@@ -306,6 +306,7 @@
             while (totalWidth > breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
                 //move item to menu
                 priorityNav.toMenu(_this, identifier);
+                //update dropdownToggle label
                 if(viewportWidth > settings.breakPoint) updateLabel(_this, identifier, settings.navDropdownLabel);
             }
 
@@ -604,7 +605,7 @@
             /**
              * Store the dropdown element
              */
-            navDropdown = '.'+settings.navDropdown;
+            navDropdown = "."+settings.navDropdown;
             if (!_this.querySelector(navDropdown)) {
                 console.warn("couldn't find the specified navDropdown element");
                 return;
@@ -613,7 +614,7 @@
             /**
              * Store the dropdown toggle element
              */
-            navDropdownToggle = '.'+settings.navDropdownToggle;
+            navDropdownToggle = "."+settings.navDropdownToggle;
             if (!_this.querySelector(navDropdownToggle)) {
                 console.warn("couldn't find the specified navDropdownToggle element");
                 return;
