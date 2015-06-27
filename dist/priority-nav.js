@@ -26,21 +26,24 @@
     var instance = 0;
     var count = 0;
     var mainNavWrapper, totalWidth, restWidth, mainNav, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
+    var viewportWidth = 0;
 
     /**
      * Default settings
      * @type {{initClass: string, navDropdown: string, navDropdownToggle: string, mainNavWrapper: string, moved: Function, movedBack: Function}}
      */
     var defaults = {
-        initClass: "js-priorityNav",
-        mainNavWrapper: "nav",
-        mainNav: "ul",
-        navDropdown: ".nav__dropdown",
-        navDropdownToggle: ".nav__dropdown-toggle",
-        navDropdownLabel: "more",
-        throttleDelay: 50,
-        offsetPixels: 0,
-        count: true,
+        initClass:                  "js-priorityNav", // Class that will be printed on html element to allow conditional css styling.
+        mainNavWrapper:             "nav", // mainnav wrapper selector (must be direct parent from mainNav)
+        mainNav:                    "ul", // mainnav selector. (must be inline-block)
+        navDropdown:                ".nav__dropdown", // class used for the dropdown.
+        navDropdownToggle:          ".nav__dropdown-toggle", // class used for the dropdown toggle.
+        navDropdownLabel:           "more", // Text that is used for the dropdown toggle.
+        navDropdownBreakpointLabel: "menu", //button label for navDropdownToggle when the breakPoint is reached.
+        breakPoint:                 500, //amount of pixels when all menu items should be moved to dropdown to simulate a mobile menu
+        throttleDelay:              50, // this will throttle the calculating logic on resize because i'm a responsible dev.
+        offsetPixels:               0, // increase to decrease the time it takes to move an item.
+        count:                      true, // prints the amount of items are moved to the attribute data-count to style with css counter.
 
         //Callbacks
         moved: function () {
@@ -220,6 +223,28 @@
 
 
     /**
+     * Get viewport size
+     * @returns {{width: number, height: number}}
+     */
+    var viewportSize = function() {
+        var doc = document, w = window;
+        var docEl = (doc.compatMode && doc.compatMode === "CSS1Compat")?
+            doc.documentElement: doc.body;
+
+        var width = docEl.clientWidth;
+        var height = docEl.clientHeight;
+
+        // mobile zoomed in?
+        if ( w.innerWidth && width > w.innerWidth ) {
+            width = w.innerWidth;
+            height = w.innerHeight;
+        }
+
+        return {width: width, height: height};
+    };
+
+
+    /**
      * Get width
      * @param elem
      * @returns {number}
@@ -233,6 +258,7 @@
             dropDownWidth = 0;
         }
         restWidth = getChildrenWidth(_this) + settings.offsetPixels;
+        viewportWidth = viewportSize().width;
     };
 
 
@@ -271,19 +297,22 @@
             /**
              * Keep executing until all menu items that are overflowing are moved
              */
-            while (totalWidth < restWidth && _this.querySelector(mainNav).children.length > 0) {
+            while (totalWidth < restWidth || viewportWidth < settings.breakPoint && _this.querySelector(mainNav).children.length > 0) {
                 //move item to dropdown
                 priorityNav.toDropdown(_this, identifier);
                 //recalculate widths
                 calculateWidths(_this, identifier);
+
+                if(viewportWidth < settings.breakPoint) updateLabel(_this, identifier, settings.navDropdownBreakpointLabel);
             }
 
             /**
              * Keep executing until all menu items that are able to move back are moved
              */
-            while (totalWidth > breaks[identifier][breaks[identifier].length - 1]) {
+            while (totalWidth > breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
                 //move item to menu
                 priorityNav.toMenu(_this, identifier);
+                if(viewportWidth > settings.breakPoint) updateLabel(_this, identifier, settings.navDropdownLabel);
             }
 
             /**
@@ -322,7 +351,11 @@
      * Update count on dropdown toggle button
      */
     var updateCount = function (_this, identifier) {
-        _this.querySelector(navDropdownToggle).setAttribute("count", breaks[identifier].length);
+        _this.querySelector(navDropdownToggle).setAttribute("priorityNav-count", breaks[identifier].length);
+    };
+
+    var updateLabel = function(_this, identifier, label){
+        _this.querySelector(navDropdownToggle).innerHTML = label;
     };
 
 
