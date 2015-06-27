@@ -1,5 +1,5 @@
 /*
- * priority-nav - v1.0.5 | (c) 2015 @gijsroge | MIT license
+ * priority-nav - v1.0.6 | (c) 2015 @gijsroge | MIT license
  * Repository: https://github.com/gijsroge/priority-navigation.git
  * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
  * Demo: http://gijsroge.github.io/priority-nav.js/
@@ -36,8 +36,8 @@
         initClass:                  "js-priorityNav", // Class that will be printed on html element to allow conditional css styling.
         mainNavWrapper:             "nav", // mainnav wrapper selector (must be direct parent from mainNav)
         mainNav:                    "ul", // mainnav selector. (must be inline-block)
-        navDropdown:                ".nav__dropdown", // class used for the dropdown.
-        navDropdownToggle:          ".nav__dropdown-toggle", // class used for the dropdown toggle.
+        navDropdown:                "nav__dropdown", // class used for the dropdown.
+        navDropdownToggle:          "nav__dropdown-toggle", // class used for the dropdown toggle.
         navDropdownLabel:           "more", // Text that is used for the dropdown toggle.
         navDropdownBreakpointLabel: "menu", //button label for navDropdownToggle when the breakPoint is reached.
         breakPoint:                 500, //amount of pixels when all menu items should be moved to dropdown to simulate a mobile menu
@@ -195,13 +195,13 @@
         /**
          * Add classes so we can target elements
          */
-        navDropdown.classList.add(settings.navDropdown.substr(1));
+        navDropdown.classList.add(settings.navDropdown);
         navDropdown.classList.add("priority-nav__dropdown");
 
-        navDropdownToggle.classList.add(settings.navDropdownToggle.substr(1));
+        navDropdownToggle.classList.add(settings.navDropdownToggle);
         navDropdownToggle.classList.add("priority-nav__dropdown-toggle");
 
-        toggleWrapper.classList.add(settings.navDropdown.substr(1)+"-wrapper");
+        toggleWrapper.classList.add(settings.navDropdown+"-wrapper");
         toggleWrapper.classList.add("priority-nav__wrapper");
 
         _this.classList.add("priority-nav");
@@ -470,7 +470,7 @@
 
         // Toggle dropdown
         _this.querySelector(navDropdownToggle).addEventListener("click", function () {
-            toggleClass(_this.querySelector(settings.navDropdown), "show");
+            toggleClass(_this.querySelector(navDropdown), "show");
             toggleClass(this, "is-open");
             toggleClass(_this, "is-open");
         });
@@ -610,7 +610,7 @@
             /**
              * Store the dropdown element
              */
-            navDropdown = settings.navDropdown;
+            navDropdown = "."+settings.navDropdown;
             if (!_this.querySelector(navDropdown)) {
                 console.warn("couldn't find the specified navDropdown element");
                 return;
@@ -619,7 +619,7 @@
             /**
              * Store the dropdown toggle element
              */
-            navDropdownToggle = settings.navDropdownToggle;
+            navDropdownToggle = "."+settings.navDropdownToggle;
             if (!_this.querySelector(navDropdownToggle)) {
                 console.warn("couldn't find the specified navDropdownToggle element");
                 return;

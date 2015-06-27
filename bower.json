@@ -1,7 +1,7 @@
 {
   "name": "priority-nav",
   "title": "priority-nav",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": [
     "dist/priority-nav.js",
     "dist/priority-nav-core.css"
