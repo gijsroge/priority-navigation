@@ -29,7 +29,7 @@ Load plugin files
 
 Call plugin without any options.
 ```js
-var priorityNav = priorityNav.init();
+var nav = priorityNav.init();
 ```
 Ideal html structure
 ```html
