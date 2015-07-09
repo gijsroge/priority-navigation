@@ -291,7 +291,7 @@
             /**
              * Keep executing until all menu items that are overflowing are moved
              */
-            while (totalWidth < restWidth  && _this.querySelector(mainNav).children.length > 0 || viewportWidth < settings.breakPoint && _this.querySelector(mainNav).children.length > 0) {
+            while (totalWidth <= restWidth  && _this.querySelector(mainNav).children.length > 0 || viewportWidth < settings.breakPoint && _this.querySelector(mainNav).children.length > 0) {
                 //move item to dropdown
                 priorityNav.toDropdown(_this, identifier);
                 //recalculate widths
@@ -303,7 +303,7 @@
             /**
              * Keep executing until all menu items that are able to move back are moved
              */
-            while (totalWidth > breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
+            while (totalWidth >= breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
                 //move item to menu
                 priorityNav.toMenu(_this, identifier);
                 //update dropdownToggle label
