@@ -1,5 +1,5 @@
 /*
- * priority-nav - v1.0.7 | (c) 2015 @gijsroge | MIT license
+ * priority-nav - v1.0.8 | (c) 2015 @gijsroge | MIT license
  * Repository: https://github.com/gijsroge/priority-navigation.git
  * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
  * Demo: http://gijsroge.github.io/priority-nav.js/
@@ -297,7 +297,7 @@
             /**
              * Keep executing until all menu items that are overflowing are moved
              */
-            while (totalWidth < restWidth  && _this.querySelector(mainNav).children.length > 0 || viewportWidth < settings.breakPoint && _this.querySelector(mainNav).children.length > 0) {
+            while (totalWidth <= restWidth  && _this.querySelector(mainNav).children.length > 0 || viewportWidth < settings.breakPoint && _this.querySelector(mainNav).children.length > 0) {
                 //move item to dropdown
                 priorityNav.toDropdown(_this, identifier);
                 //recalculate widths
@@ -309,7 +309,7 @@
             /**
              * Keep executing until all menu items that are able to move back are moved
              */
-            while (totalWidth > breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
+            while (totalWidth >= breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
                 //move item to menu
                 priorityNav.toMenu(_this, identifier);
                 //update dropdownToggle label
