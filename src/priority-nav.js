@@ -20,21 +20,24 @@
     var instance = 0;
     var count = 0;
     var mainNavWrapper, totalWidth, restWidth, mainNav, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
+    var viewportWidth = 0;
 
     /**
      * Default settings
      * @type {{initClass: string, navDropdown: string, navDropdownToggle: string, mainNavWrapper: string, moved: Function, movedBack: Function}}
      */
     var defaults = {
-        initClass: "js-priorityNav",
-        mainNavWrapper: "nav",
-        mainNav: "ul",
-        navDropdown: ".nav__dropdown",
-        navDropdownToggle: ".nav__dropdown-toggle",
-        navDropdownLabel: "more",
-        throttleDelay: 50,
-        offsetPixels: 0,
-        count: true,
+        initClass:                  "js-priorityNav", // Class that will be printed on html element to allow conditional css styling.
+        mainNavWrapper:             "nav", // mainnav wrapper selector (must be direct parent from mainNav)
+        mainNav:                    "ul", // mainnav selector. (must be inline-block)
+        navDropdown:                "nav__dropdown", // class used for the dropdown.
+        navDropdownToggle:          "nav__dropdown-toggle", // class used for the dropdown toggle.
+        navDropdownLabel:           "more", // Text that is used for the dropdown toggle.
+        navDropdownBreakpointLabel: "menu", //button label for navDropdownToggle when the breakPoint is reached.
+        breakPoint:                 500, //amount of pixels when all menu items should be moved to dropdown to simulate a mobile menu
+        throttleDelay:              50, // this will throttle the calculating logic on resize because i'm a responsible dev.
+        offsetPixels:               0, // increase to decrease the time it takes to move an item.
+        count:                      true, // prints the amount of items are moved to the attribute data-count to style with css counter.
 
         //Callbacks
         moved: function () {
@@ -186,13 +189,13 @@
         /**
          * Add classes so we can target elements
          */
-        navDropdown.classList.add(settings.navDropdown.substr(1));
+        navDropdown.classList.add(settings.navDropdown);
         navDropdown.classList.add("priority-nav__dropdown");
 
-        navDropdownToggle.classList.add(settings.navDropdownToggle.substr(1));
+        navDropdownToggle.classList.add(settings.navDropdownToggle);
         navDropdownToggle.classList.add("priority-nav__dropdown-toggle");
 
-        toggleWrapper.classList.add(settings.navDropdown.substr(1)+"-wrapper");
+        toggleWrapper.classList.add(settings.navDropdown+"-wrapper");
         toggleWrapper.classList.add("priority-nav__wrapper");
 
         _this.classList.add("priority-nav");
@@ -214,6 +217,28 @@
 
 
     /**
+     * Get viewport size
+     * @returns {{width: number, height: number}}
+     */
+    var viewportSize = function() {
+        var doc = document, w = window;
+        var docEl = (doc.compatMode && doc.compatMode === "CSS1Compat")?
+            doc.documentElement: doc.body;
+
+        var width = docEl.clientWidth;
+        var height = docEl.clientHeight;
+
+        // mobile zoomed in?
+        if ( w.innerWidth && width > w.innerWidth ) {
+            width = w.innerWidth;
+            height = w.innerHeight;
+        }
+
+        return {width: width, height: height};
+    };
+
+
+    /**
      * Get width
      * @param elem
      * @returns {number}
@@ -227,6 +252,7 @@
             dropDownWidth = 0;
         }
         restWidth = getChildrenWidth(_this) + settings.offsetPixels;
+        viewportWidth = viewportSize().width;
     };
 
 
@@ -265,19 +291,23 @@
             /**
              * Keep executing until all menu items that are overflowing are moved
              */
-            while (totalWidth < restWidth && _this.querySelector(mainNav).children.length > 0) {
+            while (totalWidth < restWidth  && _this.querySelector(mainNav).children.length > 0 || viewportWidth < settings.breakPoint && _this.querySelector(mainNav).children.length > 0) {
                 //move item to dropdown
                 priorityNav.toDropdown(_this, identifier);
                 //recalculate widths
                 calculateWidths(_this, identifier);
+                //update dropdownToggle label
+                if(viewportWidth < settings.breakPoint) updateLabel(_this, identifier, settings.navDropdownBreakpointLabel);
             }
 
             /**
              * Keep executing until all menu items that are able to move back are moved
              */
-            while (totalWidth > breaks[identifier][breaks[identifier].length - 1]) {
+            while (totalWidth > breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
                 //move item to menu
                 priorityNav.toMenu(_this, identifier);
+                //update dropdownToggle label
+                if(viewportWidth > settings.breakPoint) updateLabel(_this, identifier, settings.navDropdownLabel);
             }
 
             /**
@@ -316,7 +346,11 @@
      * Update count on dropdown toggle button
      */
     var updateCount = function (_this, identifier) {
-        _this.querySelector(navDropdownToggle).dataset.count = breaks[identifier].length;
+        _this.querySelector(navDropdownToggle).setAttribute("priorityNav-count", breaks[identifier].length);
+    };
+
+    var updateLabel = function(_this, identifier, label){
+        _this.querySelector(navDropdownToggle).innerHTML = label;
     };
 
 
@@ -431,7 +465,7 @@
 
         // Toggle dropdown
         _this.querySelector(navDropdownToggle).addEventListener("click", function () {
-            toggleClass(_this.querySelector(settings.navDropdown), "show");
+            toggleClass(_this.querySelector(navDropdown), "show");
             toggleClass(this, "is-open");
             toggleClass(_this, "is-open");
         });
@@ -571,7 +605,7 @@
             /**
              * Store the dropdown element
              */
-            navDropdown = settings.navDropdown;
+            navDropdown = "."+settings.navDropdown;
             if (!_this.querySelector(navDropdown)) {
                 console.warn("couldn't find the specified navDropdown element");
                 return;
@@ -580,7 +614,7 @@
             /**
              * Store the dropdown toggle element
              */
-            navDropdownToggle = settings.navDropdownToggle;
+            navDropdownToggle = "."+settings.navDropdownToggle;
             if (!_this.querySelector(navDropdownToggle)) {
                 console.warn("couldn't find the specified navDropdownToggle element");
                 return;
