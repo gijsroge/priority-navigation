@@ -65,7 +65,7 @@ movedBack: function () {} // executed when item is moved back to main menu
 
 ### Package managers
 - **npm:** `npm --install priority-nav.js`
-- **bower:** `bower --install priority-nav.js`
+- **bower:** `bower install priority-nav.js`
 
 ### Building the source files
 ```
