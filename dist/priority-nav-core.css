@@ -21,11 +21,24 @@
   display: inline-block;
 }
 
+.priority-nav-has-dropdown .priority-nav__dropdown-toggle {
+  position: relative;
+}
+
 .priority-nav__wrapper {
   position: relative;
 }
 
 .priority-nav__dropdown {
+  position: absolute;
+}
+
+.priority-nav__dropdown.show {
+  visibility: visible;
+}
+
+.priority-nav__dropdown-toggle {
+  visibility: hidden;
   position: absolute;
 }
 

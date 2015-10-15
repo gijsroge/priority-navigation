@@ -321,6 +321,16 @@
              */
             if (breaks[identifier].length < 1) {
                 _this.querySelector(navDropdown).classList.remove("show");
+                //show navDropdownLabel
+                updateLabel(_this, identifier, settings.navDropdownLabel);
+            }
+
+            /**
+             * If there are no items in menu
+             */
+            if (_this.querySelector(mainNav).children.length < 1){
+                //show navDropdownBreakpointLabel
+                updateLabel(_this, identifier, settings.navDropdownBreakpointLabel);
             }
 
             /**

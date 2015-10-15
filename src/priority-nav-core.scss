@@ -20,11 +20,27 @@
   li{
     display: inline-block;
   }
+  &-has-dropdown{
+    .priority-nav{
+      &__dropdown{
+        &-toggle{
+          position: relative;
+        }
+      }
+    }
+  }
   &__wrapper{
     position: relative;
   }
   &__dropdown{
     position: absolute;
+    &.show{
+      visibility: visible;
+    }
+    &-toggle{
+      visibility: hidden;
+      position: absolute;
+    }
   }
   &-is-visible{
     visibility: visible;
