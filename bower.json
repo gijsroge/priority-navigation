@@ -32,6 +32,7 @@
   "ignore": [
     "**/.*",
     "*.json",
+    "demo/.npm/node_modules",
     "src",
     "node_modules",
     "bower_components",
