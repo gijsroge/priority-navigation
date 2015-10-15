@@ -1,0 +1,14 @@
+/**
+ * @_boxmodel.css
+ * The CSS box model is essentially a box that wraps around HTML elements,
+ * and it consists of: margins, borders, padding, and the actual content.
+ */
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}

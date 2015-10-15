@@ -1,0 +1,10 @@
+# Node
+.npm/node_modules
+**/*.log
+
+# Ignore IDE settings
+/.idea
+atlassian-ide-plugin.xml
+
+# photoshop files
+**/*.psd

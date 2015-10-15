@@ -1,0 +1,21 @@
+header{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+
+  @media (max-width: $smartphone-landscape) {
+    flex-direction: column;
+  }
+
+  .github{
+    margin-left: auto;
+    @media (max-width: $smartphone-landscape) {
+      margin-left: 0;
+      margin-top: 2rem;
+    }
+  }
+
+  margin: 0 auto;
+  padding: 6rem 0 0;
+}

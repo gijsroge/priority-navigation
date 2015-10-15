@@ -1,0 +1,30 @@
+html,body{
+  height: 100%;
+}
+
+p{
+  a{
+    color: $blue;
+    &:visited{
+      color: lighten($blue, 15%);
+    }
+  }
+}
+
+.heading{
+  margin: 6rem 0;
+  margin-bottom: 2rem;
+  font-size: 2.6rem;
+  font-weight: $light;
+  line-height: 1.4;
+}
+
+.bottom{
+  padding-bottom: 6rem;
+}
+
+.bg{
+  background-color: #FFF;
+  background-image: linear-gradient(to top, #F3F3F3 0%, #FFF 100%);
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,93 @@
+/* Positions */
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+
+/* Layout */
+.inline-block {
+  display: inline-block;
+}
+
+.display-block {
+  display: block;
+}
+
+.table{
+  display: table;
+  width: 100%;
+}
+
+.table-cell{
+  display: table-cell;
+}
+
+/* Alignment */
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+.v-align-middle {
+  vertical-align: middle;
+}
+
+.v-align-top {
+  vertical-align: top;
+}
+
+.v-align-bottom {
+  vertical-align: bottom;
+}
+
+/* Weights */
+.light {
+  font-weight: $light;
+}
+
+.regular {
+  font-weight: $normal;
+}
+
+.bold {
+  font-weight: $bold;
+}
+
+.normal {
+  font-style: normal;
+}
+
+.italic {
+  font-style: italic;
+}
+
+/* Transform */
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* Hide text */
+.hide-text {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Overflow */
+.overflow-hidden{
+  overflow: hidden;
+}
+
+/* z-index */
+.index-up{
+  position: relative;
+  z-index: 1;
+}

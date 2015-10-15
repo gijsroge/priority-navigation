@@ -1,0 +1,37 @@
+/*
+ * Sets the base font to 10px for easier math
+ */
+html {
+  font-size: 62.5%;
+}
+
+/*
+ * Sets the default sizing to make sure nothing is actually 10px
+ */
+body {
+  font-size: 18px;
+  font-size: 1.8rem;
+
+  font-family: 'Open Sans', sans-serif;
+  color: $black;
+
+  /*
+   * Force Anti-aliasing
+   */
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Voodoo to enable ligatures and kerning
+ */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  text-rendering: optimizeLegibility;
+}
+
+p{
+  line-height: 1.7;
+}
+strong{
+  font-weight: $semi;
+}

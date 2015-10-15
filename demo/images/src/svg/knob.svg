@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="16" height="31" viewBox="0 0 16 31">
+  <defs>
+    <style>
+
+      .cls-3 {
+        fill: #068df6;
+      }
+
+      .cls-4 {
+        fill: #ffffff;
+      }
+    </style>
+  </defs>
+  <g id="knobsvg">
+    <rect id="rect-1" class="cls-3" width="16" height="31"/>
+    <rect id="rect-2" class="cls-4" x="6" y="9" width="1" height="13"/>
+    <rect id="rect-3" class="cls-4" x="9" y="9" width="1" height="13"/>
+  </g>
+</svg>

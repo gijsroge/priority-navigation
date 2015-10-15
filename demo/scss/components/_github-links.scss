@@ -1,0 +1,12 @@
+.github{
+  svg{
+    vertical-align: middle;
+    margin-right: 1.5rem;
+  }
+  color: $black;
+  font-size: 1.6rem;
+
+  &:hover{
+    color: $blue;
+  }
+}

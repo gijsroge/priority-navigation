@@ -1,0 +1,14 @@
+.wrapper{
+  max-width: $wrapper;
+  margin: 0 auto;
+  @media (max-width: $wrapper + 80px) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+    max-width: 100%;
+  }
+}
+
+.wrapper--big{
+  max-width: $wrapper--big;
+  margin: 0 auto;
+}

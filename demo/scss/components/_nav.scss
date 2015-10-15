@@ -1,0 +1,119 @@
+nav{
+  background-color: darken($black, 20%);
+  margin: 7rem 0;
+  padding: 0 4rem;
+  min-width: 200px;
+  position: relative;
+  white-space: nowrap;
+  max-width: $wrapper--big;
+
+
+  ul{
+    display: inline-block;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li{
+    display: inline-block;
+    &:first-child{
+      a{
+        padding-left: 0;
+      }
+    }
+  }
+  a{
+    color: white;
+    display: inline-block;
+    padding: 4rem 2rem;
+    font-weight: $bold;
+  }
+  .knob{
+    cursor: ew-resize;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(50%);
+    @media (max-width: $wrapper--big + 50px) {
+      display: none;
+    }
+  }
+}
+
+.nav__dropdown{
+  &.show{
+    transform: rotateX(0deg);
+    opacity: 1;
+    visibility: visible;
+    box-shadow: 0 0 20px 0 rgba($black, 0.25);
+    transition: 300ms $custom-bounce,box-shadow 1000ms $custom-bounce;
+  }
+
+  $color: $blue;
+  padding: 2rem;
+  white-space: nowrap;
+  top: 80%;
+  right: 0;
+  background-color: $color;
+  transition: 300ms $custom-bounce;
+  transform-origin: center top;
+  transform: rotateX(-30deg);
+  opacity: 0;
+
+
+  @media (max-width: $smartphone-landscape) {
+    right: auto;
+    left: 0;
+    &:after{
+      right: auto;
+      left: 4rem;
+    }
+  }
+
+  &:after{
+    $size: 6px;
+    @include triangle(up, $size, $color);
+    content:'';
+    top: -$size;
+    right: 4rem;
+  }
+
+  &-wrapper{
+    display: inline-block;
+    perspective: 500px;
+    @media (max-width: $smartphone-landscape) {
+      position: static !important;
+    }
+  }
+
+  &-toggle{
+    outline: none;
+    display: inline-block;
+    border: none;
+    background: none;
+    font-weight: $bold;
+    text-decoration: underline;
+    color: white;
+    padding: 4rem 2rem;
+    background-image: url('./../images/dist/svg/arrow-down.svg');
+    background-repeat: no-repeat;
+    background-position: 100% center;
+  }
+
+  li{
+    display: block;
+    &:first-child{
+      a{
+        padding-left: 2rem;
+      }
+    }
+  }
+
+  a{
+    display: inline-block;
+    padding: .5rem 2rem;
+    font-weight: $normal;
+    font-size: 1.6rem;
+  }
+}
