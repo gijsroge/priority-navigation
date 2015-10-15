@@ -1,5 +1,5 @@
 /*
- * priority-nav - v1.0.8 | (c) 2015 @gijsroge | MIT license
+ * priority-nav - v1.0.9 | (c) 2015 @gijsroge | MIT license
  * Repository: https://github.com/gijsroge/priority-navigation.git
  * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
  * Demo: http://gijsroge.github.io/priority-nav.js/
@@ -169,7 +169,8 @@
      * Check if dropdown menu is already on page before creating it
      * @param mainNavWrapper
      */
-    var prepareHtml = function (_this) {
+    var prepareHtml = function (_this, settings) {
+
         /**
          * Create dropdow menu
          * @type {HTMLElement}
@@ -189,6 +190,7 @@
          * Move elements to the right spot
          */
         _this.insertAfter(toggleWrapper, _this.querySelector(mainNav));
+
         toggleWrapper.appendChild(navDropdown);
         toggleWrapper.appendChild(navDropdownToggle);
 
@@ -266,7 +268,7 @@
      * Move item to array
      * @param item
      */
-    priorityNav.doesItFit = function (_this) {
+    priorityNav.doesItFit = function (_this, settings) {
 
         /**
          * Check if it is the first run
@@ -465,17 +467,17 @@
     /**
      * Bind eventlisteners
      */
-    var listeners = function (_this) {
+    var listeners = function (_this, settings) {
 
         // Check if an item needs to move
         if(window.attachEvent) {
             window.attachEvent("onresize", function() {
-                if(priorityNav.doesItFit)priorityNav.doesItFit(_this);
+                if(priorityNav.doesItFit)priorityNav.doesItFit(_this, settings);
             });
         }
         else if(window.addEventListener) {
             window.addEventListener("resize", function() {
-                if(priorityNav.doesItFit)priorityNav.doesItFit(_this);
+                if(priorityNav.doesItFit)priorityNav.doesItFit(_this, settings);
             }, true);
         }
 
@@ -551,7 +553,9 @@
      * @param n
      * @param r
      */
-    Node.prototype.insertAfter = function(n,r) {this.insertBefore(n,r.nextSibling);};
+    if (supports && typeof Node !== "undefined"){
+        Node.prototype.insertAfter = function(n,r) {this.insertBefore(n,r.nextSibling);};
+    }
 
 
     /**
@@ -561,8 +565,9 @@
      */
     priorityNav.init = function (options) {
 
+
         // Feature test.
-        if (!supports){
+        if (!supports && typeof Node === "undefined"){
             console.warn("This browser doesn't support priorityNav");
             return;
         }
@@ -616,7 +621,7 @@
             /**
              * Check if we need to create the dropdown elements
              */
-            prepareHtml(_this);
+            prepareHtml(_this, settings);
 
             /**
              * Store the dropdown element
@@ -639,12 +644,12 @@
             /**
              * Event listeners
              */
-            listeners(_this);
+            listeners(_this, settings);
 
             /**
              * Start first check
              */
-            priorityNav.doesItFit(_this);
+            priorityNav.doesItFit(_this, settings);
 
         });
 

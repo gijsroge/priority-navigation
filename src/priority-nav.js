@@ -15,7 +15,7 @@
      */
     var priorityNav = {}; // Object for public APIs
     var breaks = []; // Object to store instances with breakpoints where the instances menu item"s didin"t fit.
-    var supports = !!document.querySelector && !!root.addEventListener // Feature test
+    var supports = !!document.querySelector && !!root.addEventListener; // Feature test
     var settings = {};
     var instance = 0;
     var count = 0;
@@ -547,7 +547,7 @@
      * @param n
      * @param r
      */
-    if (supports && typeof Node !== 'undefined'){
+    if (supports && typeof Node !== "undefined"){
         Node.prototype.insertAfter = function(n,r) {this.insertBefore(n,r.nextSibling);};
     }
 
@@ -561,7 +561,7 @@
 
 
         // Feature test.
-        if (!supports && typeof Node === 'undefined'){
+        if (!supports && typeof Node === "undefined"){
             console.warn("This browser doesn't support priorityNav");
             return;
         }
