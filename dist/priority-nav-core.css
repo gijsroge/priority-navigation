@@ -31,6 +31,7 @@
 
 .priority-nav__dropdown {
   position: absolute;
+  visibility: hidden;
 }
 
 .priority-nav__dropdown.show {
