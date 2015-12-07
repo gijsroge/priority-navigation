@@ -34,6 +34,7 @@
   }
   &__dropdown{
     position: absolute;
+    visibility: hidden;
     &.show{
       visibility: visible;
     }
