@@ -1,7 +1,7 @@
 {
   "name": "priority-nav",
   "title": "priority-nav",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "dist/priority-nav.js",
   "description": "Priority+ pattern navigation that hides menu items if they don't fit on screen.",
   "homepage": "http://gijsroge.github.io/priority-nav.js/",
