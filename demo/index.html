@@ -16,16 +16,6 @@
         <!-- stylesheets -->
         <link rel="stylesheet" href="../dist/priority-nav-core.css">
         <link rel="stylesheet" href="css/main.css">
-
-        <!-- Google Analytics. -->
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-            ga('create', 'UA-64420847-1', 'auto');
-            ga('send', 'pageview');
-        </script>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -64,32 +54,13 @@
             <div class="wrapper--big">
                 <nav class="nav">
                     <div class="wrapper resize-drag nav-wrapper">
-                        <ul>
+                        <ul class="nav-ul">
                             <li><a href="#">menu item</a></li>
                             <li><a href="#">menu item</a></li>
                             <li><a href="#">menu item</a></li>
                             <li><a href="#">menu item</a></li>
                             <li><a href="#">menu item</a></li>
                         </ul>
-                    </div>
-                    <div class="knob">
-                        <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="16" height="31"
-                             viewBox="0 0 16 31">
-                            <defs>
-                                <style>.cls-3 {
-                                    fill: #068df6;
-                                }
-
-                                .cls-4 {
-                                    fill: #ffffff;
-                                }</style>
-                            </defs>
-                            <g id="knobsvg">
-                                <path id="rect-1" class="cls-3" d="M0 0h16v31H0z"/>
-                                <path id="rect-2" class="cls-4" d="M6 9h1v13H6z"/>
-                                <path id="rect-3" class="cls-4" d="M9 9h1v13H9z"/>
-                            </g>
-                        </svg>
                     </div>
                 </nav>
             </div>
@@ -129,7 +100,10 @@
              */
             var wrapper = document.querySelector(".nav-wrapper");
             var nav = priorityNav.init({
-                mainNavWrapper: ".nav-wrapper"
+                mainNavWrapper: ".nav", // mainnav wrapper selector (must be direct parent from mainNav)
+                mainNav: ".nav-ul", // mainnav selector. (must be inline-block)
+                navDropdown: "nav__dropdown", // class used for the dropdown.
+                navDropdownToggle: "nav__dropdown-toggle", // class used for the dropdown toggle.
             });
 
         </script>
