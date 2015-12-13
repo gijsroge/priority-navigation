@@ -184,7 +184,7 @@
          * Move elements to the right spot
          */
         if(_this.querySelector(mainNav).parentNode !== _this){
-            console.warn('mainNav is not a direct child of mainNavWrapper, double check please');
+            console.warn("mainNav is not a direct child of mainNavWrapper, double check please");
             return;
         }
         _this.insertAfter(toggleWrapper, _this.querySelector(mainNav));
