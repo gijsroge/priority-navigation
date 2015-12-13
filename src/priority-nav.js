@@ -555,6 +555,15 @@
         Node.prototype.insertAfter = function(n,r) {this.insertBefore(n,r.nextSibling);};
     }
 
+    var checkForSymbols = function(string){
+        var firstChar = string.charAt(0);
+        if (firstChar === "." || firstChar === "#") {
+            return false;
+        }else{
+            return true;
+        }
+    };
+
 
     /**
      * Initialize Plugin
@@ -563,6 +572,11 @@
      */
     priorityNav.init = function (options) {
 
+        /**
+         * Merge user options with defaults
+         * @type {Object}
+         */
+        settings = extend(defaults, options || {});
 
         // Feature test.
         if (!supports && typeof Node === "undefined"){
@@ -570,11 +584,11 @@
             return;
         }
 
-        /**
-         * Merge user options with defaults
-         * @type {Object}
-         */
-        settings = extend(defaults, options || {});
+        // Options check
+        if (!checkForSymbols(settings.navDropdownClassName) || !checkForSymbols(settings.navDropdownToggleClassName)){
+            console.warn("No symbols allowed in navDropdownClassName & navDropdownToggleClassName. These are not selectors.");
+            return;
+        }
 
         /**
          * Store nodes
