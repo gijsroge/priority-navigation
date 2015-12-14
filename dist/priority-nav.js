@@ -334,9 +334,12 @@
             /**
              * If there are no items in menu
              */
-            if (_this.querySelector(mainNav).children.length < 1){
+            if (_this.querySelector(mainNav).children.length < 1) {
                 //show navDropdownBreakpointLabel
+                _this.classList.add("is-empty");
                 updateLabel(_this, identifier, settings.navDropdownBreakpointLabel);
+            }else{
+                _this.classList.remove("is-empty");
             }
 
             /**
