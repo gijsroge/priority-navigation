@@ -1,5 +1,5 @@
 /*
- * priority-nav - v1.0.10 | (c) 2015 @gijsroge | MIT license
+ * priority-nav - v1.0.10 | (c) 2016 @gijsroge | MIT license
  * Repository: https://github.com/gijsroge/priority-navigation.git
  * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
  * Demo: http://gijsroge.github.io/priority-nav.js/
@@ -185,6 +185,12 @@
          */
         navDropdownToggle.innerHTML = settings.navDropdownLabel;
 
+        /**
+         * Set aria attributes for accessibility
+         */
+        navDropdownToggle.setAttribute("aria-controls", "menu");
+        navDropdown.setAttribute("aria-hidden", "true");
+
 
         /**
          * Move elements to the right spot
@@ -193,10 +199,11 @@
             console.warn("mainNav is not a direct child of mainNavWrapper, double check please");
             return;
         }
+
         _this.insertAfter(toggleWrapper, _this.querySelector(mainNav));
 
-        toggleWrapper.appendChild(navDropdown);
         toggleWrapper.appendChild(navDropdownToggle);
+        toggleWrapper.appendChild(navDropdown);
 
         /**
          * Add classes so we can target elements
@@ -359,10 +366,21 @@
             _this.querySelector(navDropdownToggle).classList.add("priority-nav-is-hidden");
             _this.querySelector(navDropdownToggle).classList.remove("priority-nav-is-visible");
             _this.classList.remove("priority-nav-has-dropdown");
+
+            /**
+             * Set aria attributes for accessibility
+             */
+            _this.querySelector(".priority-nav__wrapper").setAttribute("aria-haspopup", "false");
+
         } else {
             _this.querySelector(navDropdownToggle).classList.add("priority-nav-is-visible");
             _this.querySelector(navDropdownToggle).classList.remove("priority-nav-is-hidden");
             _this.classList.add("priority-nav-has-dropdown");
+
+            /**
+             * Set aria attributes for accessibility
+             */
+            _this.querySelector(".priority-nav__wrapper").setAttribute("aria-haspopup", "true");
         }
     };
 
@@ -471,6 +489,7 @@
     };
 
 
+
     /**
      * Bind eventlisteners
      */
@@ -493,6 +512,16 @@
             toggleClass(_this.querySelector(navDropdown), "show");
             toggleClass(this, "is-open");
             toggleClass(_this, "is-open");
+
+            /**
+             * Toggle aria hidden for accessibility
+             */
+            if(-1 !== _this.className.indexOf( "is-open" )){
+                _this.querySelector(navDropdown).setAttribute("aria-hidden", "false");
+            }else{
+                _this.querySelector(navDropdown).setAttribute("aria-hidden", "true");
+                _this.querySelector(navDropdown).blur();
+            }
         });
 
         /*
