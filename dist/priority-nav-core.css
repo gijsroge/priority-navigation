@@ -13,11 +13,11 @@
     */
 }
 
-.priority-nav ul {
+.priority-nav > ul {
   display: inline-block;
 }
 
-.priority-nav li {
+.priority-nav > ul > li {
   display: inline-block;
 }
 
