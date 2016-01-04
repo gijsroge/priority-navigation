@@ -19,6 +19,7 @@
     var settings = {};
     var instance = 0;
     var count = 0;
+    var options;
     var mainNavWrapper, totalWidth, restWidth, mainNav, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
     var viewportWidth = 0;
 
@@ -273,7 +274,9 @@
      * Move item to array
      * @param item
      */
-    priorityNav.doesItFit = function (_this, settings) {
+    priorityNav.doesItFit = function (_this) {
+
+        settings = extend(defaults, options || {});
 
         /**
          * Check if it is the first run
@@ -492,12 +495,12 @@
         // Check if an item needs to move
         if(window.attachEvent) {
             window.attachEvent("onresize", function() {
-                if(priorityNav.doesItFit)priorityNav.doesItFit(_this, settings);
+                if(priorityNav.doesItFit)priorityNav.doesItFit(_this);
             });
         }
         else if(window.addEventListener) {
             window.addEventListener("resize", function() {
-                if(priorityNav.doesItFit)priorityNav.doesItFit(_this, settings);
+                if(priorityNav.doesItFit)priorityNav.doesItFit(_this);
             }, true);
         }
 
@@ -693,7 +696,7 @@
             /**
              * Start first check
              */
-            priorityNav.doesItFit(_this, settings);
+            priorityNav.doesItFit(_this);
 
         });
 
