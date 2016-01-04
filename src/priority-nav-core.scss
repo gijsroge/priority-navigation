@@ -14,11 +14,11 @@
     * Makes sure the menu's are inline-block so they don't take up
     * the entire width of its parent. This will break the plugin.
     */
-  ul{
+  > ul{
     display: inline-block;
-  }
-  li{
-    display: inline-block;
+    > li{
+      display: inline-block;
+    }
   }
   &-has-dropdown{
     .priority-nav{
