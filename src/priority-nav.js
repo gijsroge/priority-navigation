@@ -538,8 +538,8 @@
         document.onkeydown = function (evt) {
             evt = evt || window.event;
             if (evt.keyCode === 27) {
-                navDropdown.classList.remove("show");
-                navDropdownToggle.classList.remove("is-open");
+                document.querySelector(navDropdown).classList.remove("show");
+                document.querySelector(navDropdownToggle).classList.remove("is-open");
                 mainNavWrapper.classList.remove("is-open");
             }
         };
