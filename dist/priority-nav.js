@@ -1,5 +1,5 @@
 /*
- * priority-nav - v1.0.11 | (c) 2016 @gijsroge | MIT license
+ * priority-nav - v1.0.12 | (c) 2016 @gijsroge | MIT license
  * Repository: https://github.com/gijsroge/priority-navigation.git
  * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
  * Demo: http://gijsroge.github.io/priority-nav.js/
@@ -25,7 +25,6 @@
     var settings = {};
     var instance = 0;
     var count = 0;
-    var options;
     var mainNavWrapper, totalWidth, restWidth, mainNav, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
     var viewportWidth = 0;
 
@@ -190,6 +189,7 @@
          * Set aria attributes for accessibility
          */
         navDropdownToggle.setAttribute("aria-controls", "menu");
+        navDropdownToggle.setAttribute("type", "button");
         navDropdown.setAttribute("aria-hidden", "true");
 
 
@@ -281,8 +281,6 @@
      * @param item
      */
     priorityNav.doesItFit = function (_this) {
-
-        settings = extend(defaults, options || {});
 
         /**
          * Check if it is the first run
