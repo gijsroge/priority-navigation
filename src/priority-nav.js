@@ -277,8 +277,6 @@
      */
     priorityNav.doesItFit = function (_this) {
 
-        settings = extend(defaults, options || {});
-
         /**
          * Check if it is the first run
          */
