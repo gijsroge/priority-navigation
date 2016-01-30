@@ -1,112 +1,143 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>PriorityNav.js</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>PriorityNav.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Place favicon.ico in the root directory -->
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-        <!-- Google fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
+    <!-- Google fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
 
-        <!-- stylesheets -->
-        <link rel="stylesheet" href="../dist/priority-nav-core.css">
-        <link rel="stylesheet" href="css/main.css">
-    </head>
-    <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="../dist/priority-nav-core.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-        <div class="bg">
-            <header class="wrapper">
-                <h1>PriorityNav.js</h1>
-                <a class="github" href="https://github.com/gijsroge/priority-navigation">
-                    <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24" height="25"
-                         viewBox="0 0 24 25">
-                        <defs>
-                            <style>.cls-2 {
-                                fill: #171717;
-                            }</style>
-                        </defs>
-                        <path d="M11.998 0C5.37 0-.004 5.52-.004 12.327c0 5.444 3.44 10.063 8.21 11.693.6.112.818-.27.818-.595 0-.293-.01-1.068-.016-2.096-3.34.744-4.044-1.653-4.044-1.653-.545-1.424-1.332-1.803-1.332-1.803-1.09-.765.082-.75.082-.75 1.205.088 1.84 1.27 1.84 1.27 1.07 1.884 2.808 1.34 3.492 1.025.11-.797.42-1.34.762-1.65-2.665-.31-5.467-1.367-5.467-6.09 0-1.345.468-2.445 1.236-3.306-.123-.312-.535-1.565.118-3.262 0 0 1.007-.33 3.3 1.263.958-.273 1.984-.41 3.005-.414 1.018.005 2.045.142 3.004.415C17.294 4.78 18.3 5.112 18.3 5.112c.656 1.697.244 2.95.12 3.262.77.86 1.235 1.96 1.235 3.307 0 4.735-2.807 5.777-5.48 6.082.43.38.814 1.132.814 2.282 0 1.648-.015 2.977-.015 3.38 0 .33.216.714.825.594 4.765-1.633 8.2-6.25 8.2-11.692C24 5.518 18.628 0 12 0z"
-                              id="path-1" class="cls-2" fill-rule="evenodd"/>
-                    </svg>download on GitHub</a>
-            </header>
+<div class="bg">
+    <header class="wrapper">
+        <h1>PriorityNav.js</h1>
+        <a class="github" href="https://github.com/gijsroge/priority-navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="24" height="25"
+                 viewBox="0 0 24 25">
+                <defs>
+                    <style>.cls-2 {
+                        fill: #171717;
+                    }</style>
+                </defs>
+                <path d="M11.998 0C5.37 0-.004 5.52-.004 12.327c0 5.444 3.44 10.063 8.21 11.693.6.112.818-.27.818-.595 0-.293-.01-1.068-.016-2.096-3.34.744-4.044-1.653-4.044-1.653-.545-1.424-1.332-1.803-1.332-1.803-1.09-.765.082-.75.082-.75 1.205.088 1.84 1.27 1.84 1.27 1.07 1.884 2.808 1.34 3.492 1.025.11-.797.42-1.34.762-1.65-2.665-.31-5.467-1.367-5.467-6.09 0-1.345.468-2.445 1.236-3.306-.123-.312-.535-1.565.118-3.262 0 0 1.007-.33 3.3 1.263.958-.273 1.984-.41 3.005-.414 1.018.005 2.045.142 3.004.415C17.294 4.78 18.3 5.112 18.3 5.112c.656 1.697.244 2.95.12 3.262.77.86 1.235 1.96 1.235 3.307 0 4.735-2.807 5.777-5.48 6.082.43.38.814 1.132.814 2.282 0 1.648-.015 2.977-.015 3.38 0 .33.216.714.825.594 4.765-1.633 8.2-6.25 8.2-11.692C24 5.518 18.628 0 12 0z"
+                      id="path-1" class="cls-2" fill-rule="evenodd"/>
+            </svg>
+            download on GitHub</a>
+    </header>
 
-            <section class="wrapper">
-                <p class="heading">
-                    PriorityNav is a lightweight pure javascript plugin that will move your menu items if they don't fit its parent.
-                </p>
+    <section class="wrapper">
+        <p class="heading">
+            PriorityNav is a lightweight pure javascript plugin that will move your menu items if they don't fit its parent.
+        </p>
 
-                <div class="social">
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://gijsroge.github.io/priority-nav.js/" data-text="PriorityNav.js. A lightweight dependency free javascript plugin for smart responsive navigations." data-via="GijsRoge">Tweet</a>
-                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                    <a class="github-button" href="https://github.com/gijsroge/priority-navigation" data-count-href="/gijsroge/priority-navigation/stargazers" data-count-api="/repos/gijsroge/priority-navigation#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star gijsroge/priority-navigation on GitHub">Star</a>
-                    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
-                </div>
-            </section>
-
-            <div class="wrapper--big">
-                <nav class="nav">
-                    <div class="wrapper resize-drag nav-wrapper">
-                        <ul class="nav-ul">
-                            <li><a href="#">menu item</a></li>
-                            <li><a href="#">menu item</a></li>
-                            <li><a href="#">menu item</a></li>
-                            <li><a href="#">menu item</a></li>
-                            <li><a href="#">menu item</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-
-            <section class="wrapper bottom">
-                <p>
-                    <strong>
-                        PriorityNav is developed by <a href="http://www.twitter.com/gijsroge">@gijsroge</a> & weighs
-                        around 5kb
-                        & 2kb gzipped. The idea behind this plugin is based around the priority+ navigation from
-                        <a href="http://bradfrost.com/blog/post/revisiting-the-priority-pattern/">Brad Frost</a>.
-                    </strong>
-                </p>
-
-                <p>
-                    PriorityNav is licensed under the MIT license which basically means you can do whatever you want as
-                    long
-                    as you include the original copyright and license notice in any copy of the software/source.
-                </p>
-
-                <h4></h4>
-                <p>
-                    <b>Browsers support:</b><br/> ie9+ (if you include <a href="https://github.com/remy/polyfills">classList.js</a>), Chrome, Firefox, Safari, Opera. (mobile & desktop)
-                </p>
-            </section>
+        <div class="social">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://gijsroge.github.io/priority-nav.js/" data-text="PriorityNav.js. A lightweight dependency free javascript plugin for smart responsive navigations." data-via="GijsRoge">Tweet</a>
+            <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + '://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, 'script', 'twitter-wjs');</script>
+            <a class="github-button" href="https://github.com/gijsroge/priority-navigation" data-count-href="/gijsroge/priority-navigation/stargazers" data-count-api="/repos/gijsroge/priority-navigation#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star gijsroge/priority-navigation on GitHub">Star</a>
+            <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
         </div>
+    </section>
 
-        <!--[if lte IE 9]>
-            <script src="js/classList.js"></script>
-            <script src="js/html5shiv.min.js"></script>
-        <![endif]-->
-        <script src="../src/priority-nav.js"></script>
+    <div class="wrapper--big">
+        <nav class="nav">
+            <div class="wrapper resize-drag nav-wrapper">
+                <ul class="nav-ul">
+                    <li><a href="#">menu item</a></li>
+                    <li><a href="#">menu item</a></li>
+                    <li><a href="#">menu item</a></li>
+                    <li><a href="#">menu item</a></li>
+                    <li><a href="#">menu item</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
-        <script>
-            /**
-             * Initiate priorityNav
-             */
-            var wrapper = document.querySelector(".nav-wrapper");
-            var nav = priorityNav.init({
-                mainNavWrapper: ".nav-wrapper", // mainnav wrapper selector (must be direct parent from mainNav)
-                mainNav: ".nav-ul", // mainnav selector. (must be inline-block)
-                navDropdownClassName: "nav__dropdown", // class used for the dropdown.
-                navDropdownToggleClassName: "nav__dropdown-toggle", // class used for the dropdown toggle.
-            });
+    <nav class="nav">
+        <div class="wrapper resize-drag topnav-wrapper">
+            <ul class="nav-ul">
+                <li><a href="#">menu item</a></li>
+                <li><a href="#">menu item</a></li>
+                <li><a href="#">menu item</a></li>
+                <li><a href="#">menu item</a></li>
+                <li><a href="#">menu item</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        </script>
+    <section class="wrapper bottom">
+        <p>
+            <strong>
+                PriorityNav is developed by <a href="http://www.twitter.com/gijsroge">@gijsroge</a> & weighs
+                around 5kb
+                & 2kb gzipped. The idea behind this plugin is based around the priority+ navigation from
+                <a href="http://bradfrost.com/blog/post/revisiting-the-priority-pattern/">Brad Frost</a>.
+            </strong>
+        </p>
 
-    </body>
+        <p>
+            PriorityNav is licensed under the MIT license which basically means you can do whatever you want as
+            long
+            as you include the original copyright and license notice in any copy of the software/source.
+        </p>
+
+        <h4></h4>
+
+        <p>
+            <b>Browsers support:</b><br/> ie9+ (if you include <a href="https://github.com/remy/polyfills">classList.js</a>), Chrome, Firefox, Safari, Opera. (mobile & desktop)
+        </p>
+    </section>
+</div>
+
+<!--[if lte IE 9]>
+<script src="js/classList.js"></script>
+<script src="js/html5shiv.min.js"></script>
+<![endif]-->
+<script src="../src/priority-nav.js"></script>
+
+<script>
+    /**
+     * Initiate priorityNav
+     */
+    var wrapper = document.querySelector(".nav-wrapper");
+    var nav = priorityNav.init({
+        mainNavWrapper: ".nav-wrapper", // mainnav wrapper selector (must be direct parent from mainNav)
+        mainNav: ".nav-ul", // mainnav selector. (must be inline-block)
+        navDropdownLabel: 'test',
+        navDropdownClassName: "nav__dropdown", // class used for the dropdown.
+        navDropdownToggleClassName: "nav__dropdown-toggle", // class used for the dropdown toggle.
+    });
+
+    var nav2 = priorityNav.init({
+        mainNavWrapper: ".topnav-wrapper", // mainnav wrapper selector (must be direct parent from mainNav)
+        mainNav: ".nav-ul", // mainnav selector. (must be inline-block)
+        navDropdownLabel: 'test2',
+        navDropdownClassName: "nav__dropdown", // class used for the dropdown.
+        navDropdownToggleClassName: "nav__dropdown-toggle", // class used for the dropdown toggle.
+    });
+
+</script>
+
+</body>
 </html>

@@ -184,6 +184,7 @@
          * Set aria attributes for accessibility
          */
         navDropdownToggle.setAttribute("aria-controls", "menu");
+        navDropdownToggle.setAttribute("type", "button");
         navDropdown.setAttribute("aria-hidden", "true");
 
 
