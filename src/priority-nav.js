@@ -19,7 +19,6 @@
     var settings = {};
     var instance = 0;
     var count = 0;
-    var options;
     var mainNavWrapper, totalWidth, restWidth, mainNav, navDropdown, navDropdownToggle, dropDownWidth, toggleWrapper;
     var viewportWidth = 0;
 
