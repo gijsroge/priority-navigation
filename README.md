@@ -94,3 +94,7 @@ To support Internet Explorer 8, [es5-shim](https://github.com/kriskowal/es5-shim
 ```html
 <!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
 ```
+
+### Alternatives
+* https://github.com/lewie6/ng-priority-nav (angular)
+* https://github.com/matthornsby/priority-navigation (jQuery)
