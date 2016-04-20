@@ -50,8 +50,8 @@ Ideal html structure
 initClass:                  "js-priorityNav", // Class that will be printed on html element to allow conditional css styling.
 mainNavWrapper:             "nav", // mainnav wrapper selector (must be direct parent from mainNav)
 mainNav:                    "ul", // mainnav selector. (must be inline-block)
-navDropdown:                ".nav__dropdown", // class used for the dropdown.
-navDropdownToggle:          ".nav__dropdown-toggle", // class used for the dropdown toggle.
+navDropdown:                "nav__dropdown", // class used for the dropdown - this is a class name, not a selector.
+navDropdownToggle:          "nav__dropdown-toggle", // class used for the dropdown toggle - this is a class name, not a selector.
 navDropdownLabel:           "more", // Text that is used for the dropdown toggle.
 navDropdownBreakpointLabel: "menu", //button label for navDropdownToggle when the breakPoint is reached.
 breakPoint:                 500, //amount of pixels when all menu items should be moved to dropdown to simulate a mobile menu
