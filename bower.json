@@ -28,7 +28,6 @@
   "bugs": {
     "url": "https://github.com/gijsroge/priority-navigation/issues"
   },
-  "main": "dist/tabtab.js",
   "ignore": [
     "**/.*",
     "*.json",
