@@ -627,7 +627,15 @@
          * Store nodes
          * @type {NodeList}
          */
-        var elements = document.querySelectorAll(settings.mainNavWrapper);
+        var elements;
+
+        if (settings.mainNavWrapper instanceof NodeList) {
+            elements = settings.mainNavWrapper;
+        } else if (settings.mainNavWrapper instanceof Node) {
+            elements = [settings.mainNavWrapper];
+        } else {
+            elements = document.querySelectorAll(settings.mainNavWrapper);
+        }
 
         /**
          * Loop over every instance and reference _this
