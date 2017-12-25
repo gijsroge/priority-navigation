@@ -465,7 +465,7 @@ h1 {
 
 nav {
   background-color: black;
-  margin: 7rem 0;
+  margin: 0 0 7rem;
   padding: 0 4rem;
   min-width: 200px;
   position: relative;

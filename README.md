@@ -2,7 +2,6 @@
 PriorityNav is a pure javascript plugin that will move your menu items if they don't fit its parent.
 ![Priority Navigation demo](http://gijsroge.github.io/priority-nav.js/priority-nav-demo.gif)
 
-#### Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
 
 ----------
 
@@ -58,6 +57,7 @@ breakPoint:                 500, //amount of pixels when all menu items should b
 throttleDelay:              50, // this will throttle the calculating logic on resize because i'm a responsible dev.
 offsetPixels:               0, // increase to decrease the time it takes to move an item.
 count:                      true, // prints the amount of items are moved to the attribute data-count to style with css counter.
+hiddenAfterClick:			false, // hide dropdown after click on inside elemants.
 
 //Callbacks
 moved: function () {}, // executed when item is moved to dropdown
