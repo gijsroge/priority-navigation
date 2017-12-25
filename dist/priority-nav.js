@@ -1,5 +1,5 @@
 /*
- * priority-nav - v1.0.12 | (c) 2016 @gijsroge | MIT license
+ * priority-nav - v1.0.12 | (c) 2017 @gijsroge | MIT license
  * Repository: https://github.com/gijsroge/priority-navigation.git
  * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
  * Demo: http://gijsroge.github.io/priority-nav.js/
@@ -44,6 +44,7 @@
         throttleDelay:              50, // this will throttle the calculating logic on resize because i'm a responsible dev.
         offsetPixels:               0, // increase to decrease the time it takes to move an item.
         count:                      true, // prints the amount of items are moved to the attribute data-count to style with css counter.
+		hiddenAfterClick:			false, // hidden dropdown after click on inside elemants.
 
         //Callbacks
         moved: function () {
@@ -495,7 +496,6 @@
      * Bind eventlisteners
      */
     var listeners = function (_this, settings) {
-
         // Check if an item needs to move
         if(window.attachEvent) {
             window.attachEvent("onresize", function() {
@@ -547,6 +547,19 @@
                 mainNavWrapper.classList.remove("is-open");
             }
         };
+		
+        /**
+         * Remove when clicked on dropdown
+         */
+		if(settings.hiddenAfterClick) {
+			document.addEventListener("click", function (event) {
+				if (event.target.parentNode.parentNode == _this.querySelector(navDropdown)) {
+					_this.querySelector(navDropdown).classList.remove("show");
+					_this.querySelector(navDropdownToggle).classList.remove("is-open");
+					_this.classList.remove("is-open");
+				}
+			});
+		};
     };
 
 
