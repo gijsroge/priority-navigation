@@ -208,6 +208,9 @@
 
         navDropdownToggle.classList.add(settings.navDropdownToggleClassName);
         navDropdownToggle.classList.add("priority-nav__dropdown-toggle");
+        
+        //fix so button is type="button" and do not submit forms
+        navDropdownToggle.setAttribute('type', 'button');
 
         toggleWrapper.classList.add(settings.navDropdownClassName+"-wrapper");
         toggleWrapper.classList.add("priority-nav__wrapper");
