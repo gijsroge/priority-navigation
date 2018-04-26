@@ -105,7 +105,7 @@ module.exports = function(grunt) {
     });
 
     // Build task
-    grunt.registerTask("build", ["jshint", "sass:dist", "concat:dist", "uglify:dist"]);
+    grunt.registerTask("build", ["sass:dist", "concat:dist", "uglify:dist"]);
 
     // Release task
     grunt.registerTask("release", [
