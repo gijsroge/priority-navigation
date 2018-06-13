@@ -101,3 +101,4 @@ To support Internet Explorer 8, [es5-shim](https://github.com/kriskowal/es5-shim
 * https://github.com/352Media/flexMenu (jQuery)
 * https://github.com/VPenkov/okayNav (jQuery)
 * https://github.com/VPenkov/okayNav-vanillaJS (no dependencies)
+* https://github.com/skywalkapps/nav-priority (no dependencies)
