@@ -1,5 +1,5 @@
 /*
- * priority-nav - v1.0.13 | (c) 2018 @gijsroge | MIT license
+ * priority-nav - v1.0.12 | (c) 2016 @gijsroge | MIT license
  * Repository: https://github.com/gijsroge/priority-navigation.git
  * Description: Priority+ pattern navigation that hides menu items if they don't fit on screen.
  * Demo: http://gijsroge.github.io/priority-nav.js/
@@ -214,9 +214,6 @@
 
         navDropdownToggle.classList.add(settings.navDropdownToggleClassName);
         navDropdownToggle.classList.add("priority-nav__dropdown-toggle");
-        
-        //fix so button is type="button" and do not submit forms
-        navDropdownToggle.setAttribute("type", "button");
 
         toggleWrapper.classList.add(settings.navDropdownClassName+"-wrapper");
         toggleWrapper.classList.add("priority-nav__wrapper");
@@ -326,7 +323,7 @@
             /**
              * Keep executing until all menu items that are able to move back are moved
              */
-            while (totalWidth >= breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
+            while ((totalWidth + 4) >= breaks[identifier][breaks[identifier].length - 1] && viewportWidth > settings.breakPoint) {
                 //move item to menu
                 priorityNav.toMenu(_this, identifier);
                 //update dropdownToggle label
@@ -498,6 +495,10 @@
      * Bind eventlisteners
      */
     var listeners = function (_this, settings) {
+
+        window.addEventListener("orientationchange", function() {
+            if (priorityNav.doesItFit) priorityNav.doesItFit(_this);
+        }, true);
 
         // Check if an item needs to move
         if(window.attachEvent) {
