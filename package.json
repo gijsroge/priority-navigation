@@ -29,16 +29,16 @@
     "node": ">=0.8.0"
   },
   "devDependencies": {
-    "load-grunt-tasks": "3.5.2",
     "crayola": "0.0.1",
-    "grunt": "1.0.2",
+    "grunt": "^1.0.4",
     "grunt-bump": "0.8.0",
     "grunt-contrib-concat": "1.0.1",
     "grunt-contrib-jshint": "1.1.0",
     "grunt-contrib-uglify": "3.3.0",
-    "grunt-contrib-watch": "1.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-sass": "2.1.0",
     "jshint-stylish": "2.2.1",
-    "grunt-sass": "2.1.0"
+    "load-grunt-tasks": "3.5.2"
   },
   "scripts": {
     "test": "grunt jshint"
