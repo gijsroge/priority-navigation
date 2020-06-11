@@ -1,5 +1,7 @@
 # PriorityNavigation.js
 PriorityNav is a pure javascript plugin that will move your menu items if they don't fit its parent.
+#### Vue.js version **[here](https://github.com/gijsroge/vue-responsive-menu)** site.
+----------
 ![Priority Navigation demo](http://gijsroge.github.io/priority-nav.js/priority-nav-demo.gif)
 
 #### Take a look at the **[Demo](http://gijsroge.github.io/priority-nav.js/)** site.
