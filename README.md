@@ -57,6 +57,7 @@ navDropdownToggleClassName: "nav__dropdown-toggle", // class used for the dropdo
 navDropdownLabel:           "more", // Text that is used for the dropdown toggle.
 navDropdownBreakpointLabel: "menu", //button label for navDropdownToggle when the breakPoint is reached.
 breakPoint:                 500, //amount of pixels when all menu items should be moved to dropdown to simulate a mobile menu
+turnOffPoint:               0, //amount of pixels when plugin should be disabled (all menu items should be outside the dropdown)
 throttleDelay:              50, // this will throttle the calculating logic on resize because i'm a responsible dev.
 offsetPixels:               0, // increase to decrease the time it takes to move an item.
 count:                      true, // prints the amount of items are moved to the attribute data-count to style with css counter.
