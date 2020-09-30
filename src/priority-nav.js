@@ -533,105 +533,119 @@
                 _this.classList.remove("is-open");
             }
         });
+
   
-        /**
-         * Remove when escape key is pressed
-         */
-        document.onkeyup = function (evt) {
-            evt.preventDefault();
-            evt = evt || window.event;
-            const focusedItem = document.activeElement;
-            const dropdownItems = Array.from(document.querySelectorAll(navDropdown + " li"));
-            let isFocused = (item) => document.activeElement.parentNode == item;
-            let buttonToggle = document.querySelector(navDropdownToggle);
-            let dropdown = document.querySelector(navDropdown);
-      
-            if (toggleWrapper.contains(focusedItem)) { //check if active element is a child of the dropdown wrapper
-              switch (evt.key.toLowerCase()) { // check which key is pressed
-                case 'enter':
-                  // if toggle button is active make first item active
-                  if (focusedItem === buttonToggle) {
-                    dropdownItems[0].getElementsByTagName('a')[0].focus({ preventScroll: true });
-                  }
-      
-                  break;
-                case 'escape':
-      
-                  // remove dropdown
-                  dropdown.classList.remove("show");
-                  buttonToggle.classList.remove("is-open");
-                  mainNavWrapper.classList.remove("is-open");
-      
-                  // set focus back to button
-                  buttonToggle.focus({preventScroll:true});
-      
-                  break;
-                case ' ': // space key
-      
-                  // if toggle button is active
-                  if (focusedItem === buttonToggle) {
-                    // open dropdown
-                    dropdown.classList.add("show");
-                    buttonToggle.classList.add("is-open");
-      
-                    //make first item active
-                    dropdownItems[0].getElementsByTagName('a')[0].focus({ preventScroll: true });
-                  }
-      
-                  break;
-                case 'end':
-      
-                  //make last item active
-                  dropdownItems[dropdownItems.length - 1].getElementsByTagName('a')[0].focus({ preventScroll: true });
-      
-                  break;
-                case 'home':
-      
-                  //make first item active
-                  dropdownItems[0].getElementsByTagName('a')[0].focus({ preventScroll: true });
-      
-                  break;
-                case 'arrowup':
-      
-                  // show dropdown
-                  dropdown.classList.add("show");
-                  buttonToggle.classList.add("is-open");
-      
-                  let currentIndexUp = dropdownItems.length;
-      
-                  // give currentIndexUp variable right value
-                  for (let index = 0; index < dropdownItems.length; index++) {
-                    currentIndexUp = index !== 0 && isFocused(dropdownItems[index]) ? index : currentIndexUp;
-                  }
-      
-                  // give right dropdown item focus
-                  dropdownItems[currentIndexUp - 1].getElementsByTagName('a')[0].focus({preventScroll: true});
-      
-                  break;
-                case 'arrowdown':
-                  dropdown.classList.add("show");
-                  buttonToggle.classList.add("is-open");
-      
-                  let currentIndexDown = - 1;
-      
-                  for (let index = 0; index < dropdownItems.length; index++) {
-                    currentIndexDown = isFocused(dropdownItems[index]) && (index !== dropdownItems.length - 1) ? index : currentIndexDown;
-                  }
-      
-                  dropdownItems[currentIndexDown + 1 ].getElementsByTagName('a')[0].focus({preventScroll: true});
-                  break;
-                default:
-                  break;
+      /**
+       * Nagivation with keyboard
+       */
+  
+      let toggleDropdown = (state) => {
+        if (state === 'open' ) {
+          dropdown.classList.add("show");
+          buttonToggle.classList.add("is-open");
+          mainNavWrapper.classList.add("is-open");
+        } else {
+          dropdown.classList.remove("show");
+          buttonToggle.classList.remove("is-open");
+          mainNavWrapper.classList.remove("is-open");
+        }
+      }
+  
+      let buttonToggle = document.querySelector(navDropdownToggle);
+      let dropdown = document.querySelector(navDropdown);
+  
+  
+      document.onkeyup = function (evt) {
+        const focusedItem = document.activeElement;
+        const dropdownItems = Array.from(document.querySelectorAll(navDropdown + " li"));
+        let isFocused = (item) => document.activeElement.parentNode == item;
+  
+        if (toggleWrapper.contains(focusedItem)) { //check if active element is a child of the dropdown wrapper
+          switch (evt.key.toLowerCase()) { // check which key is pressed
+            case 'enter':
+              // if toggle button is active make first item active
+              if (focusedItem === buttonToggle) {
+                  dropdownItems[0].querySelector('a').focus();
               }
-            } else {
-              // close dropdown if it's open
-              if (buttonToggle.classList.contains("is-open")) {
-                dropdown.classList.remove("show");
-                buttonToggle.classList.remove("is-open");
-                mainNavWrapper.classList.remove("is-open");
+              break;
+            case 'escape':
+              toggleDropdown('close');
+  
+              // set focus back to button
+              buttonToggle.focus();
+  
+              break;
+            case ' ': // space key
+              if (focusedItem === buttonToggle) {
+                buttonToggle.click();
+                dropdownItems[0].querySelector('a').focus();
               }
-            }
-          };
+              break;
+            case 'end':
+              //make last item active
+              dropdownItems[dropdownItems.length - 1].querySelector('a').focus();
+  
+              break;
+            case 'home':
+              //make first item active
+              dropdownItems[0].querySelector('a').focus();
+  
+              break;
+            case 'arrowup':
+              toggleDropdown('open');
+  
+              let currentIndexUp = dropdownItems.length;
+  
+              // give currentIndexUp variable right value
+              for (let index = 0; index < dropdownItems.length; index++) {
+                if (index !== 0 && isFocused(dropdownItems[index])) {
+                  currentIndexUp = index;
+  
+                  break; // end loop when correct match is found
+                }
+              }
+  
+              // give right dropdown item focus
+              dropdownItems[currentIndexUp - 1].querySelector('a').focus();
+  
+              break;
+            case 'arrowdown':
+              toggleDropdown('open');
+  
+              let currentIndexDown = - 1;
+  
+              for (let index = 0; index < dropdownItems.length; index++) {
+                if (isFocused(dropdownItems[index]) && (index !== dropdownItems.length - 1)) {
+                  currentIndexDown = index;
+                  break; // end loop when correct match is found
+                }
+              }
+  
+              dropdownItems[currentIndexDown + 1].querySelector('a').focus();
+  
+              break;
+          }
+          return;
+        }
+  
+        if (buttonToggle.classList.contains("is-open")) {
+          toggleDropdown('close');
+        }
+  
+      };
+  
+      document.onkeydown = function (evt) {
+        const focusedItem = document.activeElement;
+  
+        if (toggleWrapper.contains(focusedItem)) { //stop default behavior on arrow up and arrow down key
+          switch (evt.key.toLowerCase()) { // check which key is pressed
+            case 'arrowdown':
+            case 'arrowup':
+              evt.preventDefault();
+              break;
+          }
+        }
+      }
     };
   
   
